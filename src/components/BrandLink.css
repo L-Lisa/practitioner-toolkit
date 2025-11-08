@@ -1,0 +1,85 @@
+/* Brand Link Component */
+/* Subtle, professional link to main website */
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #293556;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.brand-link:hover {
+  opacity: 0.8;
+}
+
+.brand-link:focus-visible {
+  outline: 2px solid #7B68B6;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.brand-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.brand-link:hover .brand-logo {
+  opacity: 1;
+}
+
+.brand-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: #7B68B6;
+  letter-spacing: 0.3px;
+}
+
+/* Header variant */
+.brand-link-header {
+  padding: 6px 10px;
+  border-radius: 8px;
+  order: 1; /* Appears before offline indicator */
+}
+
+.brand-link-header:hover {
+  background: rgba(41, 53, 86, 0.05);
+}
+
+@media (max-width: 480px) {
+  .brand-link-header .brand-text {
+    display: none; /* Hide text on very small screens, show only logo */
+  }
+  
+  .brand-link-header .brand-logo {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Footer variant */
+.brand-link-footer {
+  justify-content: center;
+  padding: 12px;
+  margin-top: auto;
+}
+
+/* Compact variant (for cards) */
+.brand-link-compact {
+  gap: 6px;
+}
+
+.brand-link-compact .brand-logo {
+  width: 20px;
+  height: 20px;
+}
+
+.brand-link-compact .brand-text {
+  font-size: 12px;
+}
+

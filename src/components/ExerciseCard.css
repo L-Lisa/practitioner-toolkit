@@ -1,0 +1,149 @@
+/* Exercise Card Styles */
+/* Mobile-first, Swedish brand colors, scientific credibility */
+
+.exercise-card {
+  background: linear-gradient(135deg, #E6E6FA 0%, #F0F2FF 100%); /* Subtle gradient for depth */
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.08), 0 1px 3px rgba(41, 53, 86, 0.05);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(230, 230, 250, 0.5);
+}
+
+.exercise-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(41, 53, 86, 0.12), 
+              0 2px 6px rgba(41, 53, 86, 0.08);
+  border-color: rgba(123, 104, 182, 0.2);
+}
+
+.exercise-card:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.1);
+}
+
+.exercise-card:focus-visible {
+  outline: 2px solid #7B68B6;
+  outline-offset: 4px;
+}
+
+/* Meta Bar */
+.card-meta {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.duration-badge {
+  background: #F6F4EA; /* Cream - warm accent */
+  color: #293556; /* Navy text */
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Exercise Title - Largest Element */
+.card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #293556; /* Navy */
+  line-height: 1.2;
+  margin: 0 0 8px 0;
+}
+
+/* Competency Tag - Context */
+.card-competency {
+  font-size: 14px;
+  color: #5A4A8A; /* Darker purple for WCAG AA compliance (4.5:1 contrast on #E6E6FA) */
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  text-transform: capitalize;
+  letter-spacing: 0.2px;
+}
+
+/* Benefit Statement - Why Use This */
+.card-benefit {
+  font-size: 16px;
+  color: #293556;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+  opacity: 0.9;
+}
+
+/* Action Link */
+.card-link {
+  color: #293556;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s ease, color 0.2s ease;
+  position: relative;
+}
+
+.card-link::after {
+  content: "→";
+  font-size: 18px;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.card-link:hover {
+  gap: 10px;
+  color: #5A4A8A;
+}
+
+.card-link:hover::after {
+  transform: translateX(2px);
+}
+
+/* Logo Watermark */
+.card-logo-watermark {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.watermark-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: grayscale(100%);
+}
+
+/* Responsive - Tablet/Desktop */
+@media (min-width: 768px) {
+  .exercise-card {
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 28px;
+  }
+
+  .card-benefit {
+    font-size: 18px;
+  }
+
+  .watermark-logo {
+    width: 80px;
+    height: 80px;
+  }
+}
+

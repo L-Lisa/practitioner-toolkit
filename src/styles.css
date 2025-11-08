@@ -1,0 +1,616 @@
+/* Mindfulnessguiden Verktygslåda - Complete Stylesheet */
+/* Mobile-first, Swedish brand colors, scientific credibility */
+
+/* ============================================
+   GLOBAL STYLES & RESET
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: #F6F4EA; /* Cream background */
+  color: #293556; /* Navy text */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Adjust padding when desktop banner is visible */
+.app:has(.desktop-install-banner) {
+  padding-top: 0;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #E6E6FA;
+  flex-wrap: wrap;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.header-left {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.app-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #293556;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.install-app-button {
+  font-size: 14px;
+  color: #293556;
+  font-weight: 500;
+  background: #E6E6FA;
+  border: 2px solid #E6E6FA;
+  padding: 8px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.install-app-button .download-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.install-app-button:hover {
+  background: #7B68B6;
+  color: white;
+  border-color: #7B68B6;
+}
+
+.install-app-button:hover .download-icon {
+  color: white;
+}
+
+.install-app-button:active {
+  transform: scale(0.95);
+}
+
+/* Desktop: Create better spacing by restructuring layout */
+@media (min-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    gap: 16px;
+    flex-wrap: nowrap;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: 24px;
+  }
+
+  .header-left {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: calc(100% - 200px); /* Ensure space for right side */
+  }
+
+  .app-header h1 {
+    font-size: 28px;
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: 0;
+  }
+
+  /* On desktop, stack header-right vertically for breathing room */
+  .header-right {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
+    flex-basis: auto;
+    min-width: 180px; /* Prevent shrinking too much */
+  }
+
+  .install-app-button {
+    font-size: 14px;
+    padding: 10px 18px;
+    width: auto;
+    min-width: 160px;
+    justify-content: center;
+  }
+
+  /* Brand link in header - smaller on desktop to fit better */
+  .header-right .brand-link-header {
+    padding: 4px 8px;
+  }
+
+  .header-right .brand-link-header .brand-text {
+    font-size: 12px;
+  }
+}
+
+/* ============================================
+   FILTER BAR
+   ============================================ */
+
+.filter-bar {
+  margin-bottom: 24px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #293556;
+  white-space: nowrap;
+}
+
+.duration-dropdown {
+  background: white;
+  border: 2px solid #E6E6FA;
+  color: #293556;
+  padding: 10px 20px;
+  padding-right: 40px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 1px 3px rgba(41, 53, 86, 0.05);
+  min-height: 44px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23293556' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+  font-family: inherit;
+}
+
+.duration-dropdown:hover {
+  background-color: #F8F9FF;
+  border-color: #7B68B6;
+  box-shadow: 0 2px 6px rgba(41, 53, 86, 0.1);
+}
+
+.duration-dropdown:focus {
+  outline: none;
+  border-color: #7B68B6;
+  box-shadow: 0 0 0 3px rgba(123, 104, 182, 0.1);
+}
+
+.duration-dropdown:active {
+  transform: scale(0.98);
+}
+
+/* Remove default dropdown arrow on IE */
+.duration-dropdown::-ms-expand {
+  display: none;
+}
+
+
+/* ============================================
+   EXERCISE LIST
+   ============================================ */
+
+.exercise-list h3 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #5A4A8A; /* Darker purple for WCAG AA compliance */
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: #7B68B6;
+  font-style: italic;
+}
+
+.competency-group {
+  margin-bottom: 32px;
+}
+
+.competency-group h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #293556;
+  margin-bottom: 12px;
+  padding: 8px 0;
+  border-bottom: 2px solid #E6E6FA;
+}
+
+/* ============================================
+   EXERCISE CARD (from ExerciseCard.css)
+   ============================================ */
+
+.exercise-card {
+  background: #E6E6FA;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.exercise-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(41, 53, 86, 0.15);
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.duration-badge {
+  background: #F6F4EA;
+  color: #293556;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #293556;
+  line-height: 1.2;
+  margin: 0 0 8px 0;
+}
+
+.card-competency {
+  font-size: 14px;
+  color: #7B68B6;
+  font-weight: 500;
+  margin: 0 0 12px 0;
+  text-transform: capitalize;
+}
+
+.card-benefit {
+  font-size: 16px;
+  color: #293556;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+  opacity: 0.9;
+}
+
+.card-link {
+  color: #293556;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.2s ease;
+}
+
+.card-link:hover {
+  gap: 8px;
+}
+
+/* ============================================
+   EXERCISE DETAIL VIEW
+   ============================================ */
+
+/* ExerciseDetail styles moved to ExerciseDetail.css to avoid conflicts */
+/* Keeping only shared/global styles here */
+
+.detail-meta {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.competency-badge {
+  background: #7B68B6; /* Purple */
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.detail-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #293556;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.detail-competency {
+  font-size: 16px;
+  color: #7B68B6;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.divider {
+  border: none;
+  border-top: 2px solid #E6E6FA;
+  margin: 24px 0;
+}
+
+/* ============================================
+   DETAIL SECTIONS
+   ============================================ */
+
+.detail-section {
+  margin-bottom: 32px;
+}
+
+.section-icon {
+  font-size: 20px;
+  font-weight: 600;
+  color: #293556;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.section-content {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #293556;
+}
+
+/* Research Section */
+.research-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.research-toggle:active {
+  opacity: 0.7;
+}
+
+.research-content {
+  background: #E6E6FA;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 12px;
+}
+
+.research-level {
+  font-size: 16px;
+  font-weight: 600;
+  color: #293556;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(41, 53, 86, 0.1);
+}
+
+.research-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #293556;
+  margin: 16px 0 8px 0;
+}
+
+.research-content ul {
+  list-style-position: outside;
+  padding-left: 20px;
+  margin: 8px 0;
+}
+
+.research-content li {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  color: #293556;
+}
+
+.research-source {
+  font-size: 14px;
+  font-style: italic;
+  color: #7B68B6;
+  margin-top: 8px;
+}
+
+/* Instructions Section */
+.instructions-content {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #293556;
+  white-space: pre-wrap;
+}
+
+.instructions-content p {
+  margin-bottom: 8px;
+}
+
+.instructions-content .paragraph-break {
+  height: 16px;
+}
+
+/* When to Use Section */
+.when-to-use-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.when-to-use-list li {
+  font-size: 18px;
+  line-height: 1.6;
+  padding: 12px 0 12px 28px;
+  position: relative;
+  color: #293556;
+  border-bottom: 1px solid #E6E6FA;
+}
+
+.when-to-use-list li:last-child {
+  border-bottom: none;
+}
+
+.when-to-use-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #7B68B6;
+  font-size: 24px;
+  line-height: 1.6;
+}
+
+.detail-footer {
+  height: 40px;
+}
+
+/* ============================================
+   RESPONSIVE - TABLET/DESKTOP
+   ============================================ */
+
+@media (min-width: 768px) {
+  .app {
+    padding: 24px;
+  }
+
+  .app-header h1 {
+    font-size: 28px;
+  }
+
+  .exercise-card {
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 28px;
+  }
+
+  .card-benefit {
+    font-size: 18px;
+  }
+
+  .detail-title {
+    font-size: 36px;
+  }
+
+  .section-content,
+  .instructions-content,
+  .when-to-use-list li {
+    font-size: 20px;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY & TOUCH
+   ============================================ */
+
+button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+a, button {
+  -webkit-tap-highlight-color: rgba(41, 53, 86, 0.1);
+}
+
+:focus-visible {
+  outline: 2px solid #7B68B6;
+  outline-offset: 2px;
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a2e;
+    color: #E6E6FA;
+  }
+  
+  .app-header {
+    border-bottom-color: #293556;
+  }
+  
+  .exercise-card {
+    background: #293556;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-title,
+  .card-benefit,
+  .detail-title,
+  .section-content,
+  .instructions-content {
+    color: #E6E6FA;
+  }
+  
+  .filter-buttons button {
+    background: #293556;
+    border-color: #7B68B6;
+    color: #E6E6FA;
+  }
+  
+  .filter-buttons button.active {
+    background: #7B68B6;
+    border-color: #7B68B6;
+  }
+}
+

@@ -1,0 +1,959 @@
+/* ExerciseDetail Component Styles */
+/* Mobile-first, optimized for phone on table/stand */
+/* Script Mode + Detail Mode with breathing animations */
+
+.exercise-detail {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  background: #F6F4EA;
+  position: relative;
+}
+
+/* Adjust padding when desktop banner is visible */
+.exercise-detail:has(.desktop-install-banner) {
+  padding-top: 0;
+}
+
+.exercise-detail.has-quick-ref {
+  padding-top: 80px;
+}
+
+/* ============================================
+   QUICK REFERENCE BAR (Sticky)
+   ============================================ */
+
+.quick-ref-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(246, 244, 234, 0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #E6E6FA;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.1);
+}
+
+.quick-ref-back {
+  background: none;
+  border: none;
+  color: #293556;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  min-height: 44px;
+  min-width: 44px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.quick-ref-title {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #293556;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quick-ref-duration {
+  font-size: 14px;
+  color: #7B68B6;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #293556;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 0;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s ease;
+}
+
+.back-button:active {
+  opacity: 0.6;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.duration-toggle-button {
+  background: white;
+  border: 2px solid #E6E6FA;
+  color: #293556;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+
+.duration-toggle-button:active {
+  background: #E6E6FA;
+  transform: scale(0.95);
+}
+
+.share-button {
+  background: none;
+  border: none;
+  color: #293556;
+  cursor: pointer;
+  padding: 10px;
+  min-height: 44px;
+  min-width: 44px;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.share-button:hover {
+  background: rgba(41, 53, 86, 0.05);
+  color: #7B68B6;
+}
+
+.share-button:active {
+  background: rgba(41, 53, 86, 0.1);
+  transform: scale(0.95);
+}
+
+/* ============================================
+   META BAR
+   ============================================ */
+/* Note: .detail-meta, .duration-badge defined in styles.css */
+/* Only competency-badge specific styles here if needed */
+
+/* ============================================
+   TITLE
+   ============================================ */
+
+.detail-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #293556;
+  line-height: 1.2;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
+}
+
+.detail-competency {
+  font-size: 16px;
+  color: #7B68B6;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+/* ============================================
+   MODE TOGGLE
+   ============================================ */
+
+.mode-toggle-container {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mode-toggle {
+  background: white;
+  border: 2px solid #E6E6FA;
+  color: #293556;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.08);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mode-toggle:hover {
+  border-color: #7B68B6;
+  box-shadow: 0 4px 12px rgba(41, 53, 86, 0.12);
+}
+
+.mode-toggle.active {
+  background: #293556;
+  border-color: #293556;
+  color: white;
+  box-shadow: 0 4px 16px rgba(41, 53, 86, 0.2);
+}
+
+.mode-toggle:active {
+  transform: scale(0.98);
+}
+
+.mode-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expand-all-toggle {
+  background: white;
+  border: 2px solid #E6E6FA;
+  color: #293556;
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  box-shadow: 0 2px 6px rgba(41, 53, 86, 0.08);
+  -webkit-tap-highlight-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expand-all-toggle .expand-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: #7B68B6;
+  transition: transform 0.2s ease;
+}
+
+.expand-all-toggle:hover {
+  border-color: #7B68B6;
+  background: #F8F9FF;
+  box-shadow: 0 3px 10px rgba(123, 104, 182, 0.15);
+}
+
+.expand-all-toggle:active {
+  transform: scale(0.97);
+}
+
+.expand-all-toggle:focus-visible {
+  outline: 2px solid #7B68B6;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+
+.divider {
+  border: none;
+  border-top: 2px solid #E6E6FA;
+  margin: 32px 0;
+}
+
+/* ============================================
+   DETAIL SECTIONS (Detail Mode Only)
+   ============================================ */
+
+.detail-section {
+  margin-bottom: 24px;
+}
+
+/* Card-based layout for sections */
+.section-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.06), 0 1px 3px rgba(41, 53, 86, 0.04);
+  border: 1px solid rgba(230, 230, 250, 0.5);
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.2s ease;
+}
+
+.section-card:hover {
+  box-shadow: 0 4px 16px rgba(41, 53, 86, 0.1), 0 2px 6px rgba(41, 53, 86, 0.08);
+  transform: translateY(-1px);
+}
+
+.section-icon {
+  font-size: 18px;
+  font-weight: 600;
+  color: #293556;
+  margin-bottom: 16px;
+  line-height: 1.3;
+  letter-spacing: 0.3px;
+}
+
+.section-content {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #293556;
+}
+
+/* Why Use - Bullet List Format */
+.why-use-content {
+  margin-top: 8px;
+}
+
+.why-use-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.why-use-list li {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #293556;
+  padding: 12px 0 12px 28px;
+  position: relative;
+  border-bottom: 1px solid rgba(230, 230, 250, 0.5);
+}
+
+.why-use-list li:last-child {
+  border-bottom: none;
+}
+
+.why-use-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #7B68B6;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+/* ============================================
+   RESEARCH SECTION
+   ============================================ */
+
+.research-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s ease;
+}
+
+.research-toggle:active {
+  opacity: 0.7;
+}
+
+.research-content {
+  background: #E6E6FA;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 16px;
+}
+
+.research-level {
+  font-size: 17px;
+  font-weight: 600;
+  color: #293556;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(41, 53, 86, 0.1);
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.research-level .research-icon {
+  flex-shrink: 0;
+  color: #7B68B6;
+}
+
+.research-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #293556;
+  margin: 20px 0 12px 0;
+}
+
+.research-content ul {
+  list-style-position: outside;
+  padding-left: 24px;
+  margin: 12px 0;
+}
+
+.research-content li {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  color: #293556;
+}
+
+.research-source {
+  font-size: 14px;
+  font-style: italic;
+  color: #7B68B6;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.research-link {
+  color: #7B68B6;
+  text-decoration: underline;
+  text-decoration-color: rgba(123, 104, 182, 0.4);
+  transition: text-decoration-color 0.2s ease;
+}
+
+.research-link:hover {
+  text-decoration-color: #7B68B6;
+}
+
+.research-url-hint {
+  font-size: 12px;
+  color: #7B68B6;
+  opacity: 0.7;
+  font-style: italic;
+  margin-left: 4px;
+}
+
+/* ============================================
+   INSTRUCTIONS - DETAIL MODE
+   ============================================ */
+
+.instructions-section.detail-mode {
+  margin-bottom: 40px;
+}
+
+/* Script Toggle */
+.script-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s ease;
+  margin-bottom: 0;
+}
+
+.script-toggle:active {
+  opacity: 0.7;
+}
+
+.script-preview {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #7B68B6;
+  font-style: italic;
+  margin-top: 8px;
+  margin-bottom: 0;
+  opacity: 0.8;
+  padding-left: 4px;
+}
+
+.instructions-content {
+  font-size: 19px;
+  line-height: 2.0;
+  color: #293556;
+  white-space: pre-wrap;
+}
+
+.instruction-line {
+  margin-bottom: 18px;
+  line-height: 2.1;
+  letter-spacing: 0.3px;
+}
+
+.timing-cue {
+  margin-bottom: 24px;
+  line-height: 2.1;
+  font-style: italic;
+  color: #7B68B6;
+  font-size: 19px;
+  padding: 12px 16px;
+  border-left: 4px solid #E6E6FA;
+  background: rgba(123, 104, 182, 0.05);
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timing-icon-inline {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.practitioner-note {
+  margin-bottom: 20px;
+  line-height: 1.8;
+  font-size: 16px;
+  color: #5A4A8A; /* Darker purple for WCAG AA compliance */
+  font-style: italic;
+  padding-left: 16px;
+  border-left: 2px solid rgba(90, 74, 138, 0.3);
+}
+
+.paragraph-break {
+  height: 24px;
+}
+
+/* ============================================
+   INSTRUCTIONS - SCRIPT MODE
+   ============================================ */
+
+.instructions-section.script-mode {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.script-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 200px);
+  padding: 24px 0;
+  justify-content: flex-start;
+}
+
+/* Breathing Indicator Animation (Headspace-style) */
+.breathing-indicator {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.breath-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid #7B68B6;
+  background: rgba(123, 104, 182, 0.08);
+  animation: breathe 6s ease-in-out infinite;
+  opacity: 0.5;
+  box-shadow: 0 0 20px rgba(123, 104, 182, 0.15);
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.75;
+  }
+}
+
+.script-text {
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+  padding: 0 20px;
+}
+
+.script-line {
+  font-size: 26px;
+  line-height: 2.3;
+  color: #293556;
+  margin-bottom: 28px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  text-align: left;
+  max-width: 100%;
+}
+
+.script-line.has-breathing {
+  padding-left: 8px;
+  border-left: 3px solid rgba(123, 104, 182, 0.3);
+}
+
+.script-line:last-child {
+  margin-bottom: 0;
+}
+
+/* Script Mode Timing Cues */
+.script-timing-cue {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px 0;
+  padding: 16px;
+  background: rgba(123, 104, 182, 0.08);
+  border-left: 4px solid #7B68B6;
+  border-radius: 0 8px 8px 0;
+}
+
+.timing-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.timing-text {
+  font-size: 20px;
+  font-style: italic;
+  color: #7B68B6;
+  line-height: 1.6;
+}
+
+/* Script Mode Practitioner Notes */
+.script-practitioner-note {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #7B68B6;
+  margin-bottom: 20px;
+  font-style: italic;
+  opacity: 0.8;
+  padding-left: 16px;
+  border-left: 2px solid rgba(123, 104, 182, 0.2);
+}
+
+/* ============================================
+   FACILITATION TOGGLE
+   ============================================ */
+
+.facilitation-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s ease;
+  margin-bottom: 0;
+}
+
+.facilitation-toggle:active {
+  opacity: 0.7;
+}
+
+/* ============================================
+   FACILITATION NOTES
+   ============================================ */
+
+.facilitation-notes {
+  background: #E6E6FA;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 16px;
+}
+
+.facilitation-setup,
+.facilitation-guidance,
+.facilitation-pacing {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(41, 53, 86, 0.1);
+}
+
+.facilitation-setup:last-child,
+.facilitation-guidance:last-child,
+.facilitation-pacing:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.facilitation-setup h3,
+.facilitation-guidance h3,
+.facilitation-pacing h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #293556;
+  margin-bottom: 12px;
+  letter-spacing: 0.2px;
+}
+
+.facilitation-setup p,
+.facilitation-guidance p,
+.facilitation-pacing p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #293556;
+  font-style: normal;
+  margin: 0;
+}
+
+/* ============================================
+   WHEN TO USE
+   ============================================ */
+
+.when-to-use-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s ease;
+  margin-bottom: 0;
+}
+
+.when-to-use-toggle:active {
+  opacity: 0.7;
+}
+
+.when-to-use-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 16px;
+}
+
+.when-to-use-list li {
+  font-size: 18px;
+  line-height: 1.7;
+  padding: 14px 0 14px 32px;
+  position: relative;
+  color: #293556;
+  border-bottom: 1px solid #E6E6FA;
+}
+
+.when-to-use-list li:last-child {
+  border-bottom: none;
+}
+
+.when-to-use-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #5A4A8A; /* Darker purple for WCAG AA compliance */
+  font-size: 28px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.detail-footer {
+  height: 40px;
+}
+
+/* ============================================
+   LOGO WATERMARK (ExerciseDetail)
+   ============================================ */
+
+.detail-logo-watermark {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+  display: none; /* Hidden on mobile, shown on desktop */
+}
+
+.detail-watermark-logo {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  filter: grayscale(100%);
+}
+
+@media (min-width: 768px) {
+  .detail-logo-watermark {
+    display: block;
+  }
+}
+
+/* ============================================
+   BRAND FOOTER
+   ============================================ */
+
+.detail-brand-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(230, 230, 250, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ============================================
+   JUMP TO SCRIPT BUTTON (Floating)
+   ============================================ */
+
+.jump-to-script-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #293556;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(41, 53, 86, 0.3);
+  z-index: 100;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jump-to-script-button:hover {
+  background: #3a4a6f;
+  box-shadow: 0 6px 20px rgba(41, 53, 86, 0.4);
+  transform: translateY(-2px);
+}
+
+.jump-to-script-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.3);
+}
+
+@media (max-width: 480px) {
+  .jump-to-script-button {
+    bottom: 16px;
+    right: 16px;
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE - TABLET/DESKTOP
+   ============================================ */
+
+@media (min-width: 768px) {
+  .exercise-detail {
+    padding: 32px;
+  }
+
+  .detail-title {
+    font-size: 42px;
+    margin-bottom: 32px;
+  }
+
+  .section-content,
+  .instructions-content,
+  .instruction-line,
+  .timing-cue,
+  .when-to-use-list li {
+    font-size: 20px;
+  }
+
+  .script-line {
+    font-size: 30px;
+    line-height: 2.5;
+    margin-bottom: 32px;
+  }
+
+  .script-timing-cue {
+    margin: 40px 0;
+  }
+
+  .timing-text {
+    font-size: 22px;
+  }
+
+  .script-practitioner-note {
+    font-size: 20px;
+  }
+
+  .breath-circle {
+    width: 90px;
+    height: 90px;
+    border-width: 4px;
+  }
+  
+  .breathing-indicator {
+    height: 120px;
+    margin-bottom: 48px;
+  }
+
+  .quick-ref-bar {
+    padding: 16px 32px;
+  }
+
+  .quick-ref-title {
+    font-size: 18px;
+  }
+
+  .facilitation-notes {
+    padding: 32px;
+  }
+}
+
+/* ============================================
+   LANDSCAPE ORIENTATION (Tablet)
+   ============================================ */
+
+@media (min-width: 768px) and (orientation: landscape) {
+  .script-line {
+    font-size: 28px;
+    line-height: 2.4;
+  }
+
+  .breath-circle {
+    width: 85px;
+    height: 85px;
+  }
+  
+  .breathing-indicator {
+    height: 110px;
+    margin-bottom: 40px;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid #7B68B6;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   REDUCED MOTION (Accessibility)
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .breath-circle {
+    animation: none;
+    opacity: 0.6;
+  }
+
+  .mode-toggle,
+  .back-button {
+    transition: none;
+  }
+}

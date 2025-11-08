@@ -1,0 +1,148 @@
+/* Desktop Install Banner */
+/* Only shows on desktop viewports */
+
+.desktop-install-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #293556 0%, #3a4a6f 100%);
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(41, 53, 86, 0.2);
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.desktop-install-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.desktop-install-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+  margin-top: 2px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.desktop-install-text {
+  flex: 1;
+}
+
+.desktop-install-text strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.desktop-install-text p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+.install-steps {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.install-steps p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.install-steps strong {
+  display: inline;
+  font-size: 14px;
+  margin: 0;
+}
+
+.desktop-install-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.desktop-install-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.desktop-install-close:active {
+  transform: scale(0.95);
+}
+
+/* Adjust app padding when banner is visible */
+.app:has(+ .desktop-install-banner),
+.app > .desktop-install-banner ~ * {
+  padding-top: 0;
+}
+
+/* Mobile: Hide banner */
+@media (max-width: 767px) {
+  .desktop-install-banner {
+    display: none;
+  }
+}
+
+/* Tablet: Smaller banner */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .desktop-install-content {
+    padding: 14px 20px;
+  }
+
+  .desktop-install-icon {
+    font-size: 28px;
+  }
+
+  .desktop-install-text strong {
+    font-size: 16px;
+  }
+
+  .desktop-install-text p {
+    font-size: 14px;
+  }
+}
+

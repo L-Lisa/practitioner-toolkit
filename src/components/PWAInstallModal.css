@@ -1,0 +1,220 @@
+/* PWA Install Modal Styles */
+
+.pwa-install-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(41, 53, 86, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.pwa-install-modal {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.pwa-install-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #E6E6FA;
+}
+
+.pwa-install-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #293556;
+  margin: 0;
+}
+
+.pwa-install-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #7B68B6;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pwa-install-close:hover {
+  background: rgba(123, 104, 182, 0.1);
+}
+
+.pwa-install-close:active {
+  transform: scale(0.95);
+}
+
+.pwa-install-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.pwa-install-icon {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.pwa-install-intro {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.pwa-install-steps {
+  background: linear-gradient(135deg, #F8F9FF 0%, #F0F2FF 100%);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #E6E6FA;
+}
+
+.pwa-install-steps h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #293556;
+  margin: 0 0 16px 0;
+}
+
+.pwa-install-steps ol {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.pwa-install-steps li {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.pwa-install-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.pwa-install-steps strong {
+  color: #293556;
+  font-weight: 600;
+}
+
+.icon-placeholder {
+  display: inline-block;
+  margin: 0 4px;
+}
+
+.pwa-install-benefits {
+  background: #E8F5E9;
+  border: 1px solid #4CAF50;
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.pwa-install-benefits h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2E7D32;
+  margin: 0 0 12px 0;
+}
+
+.pwa-install-benefits ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.pwa-install-benefits li {
+  font-size: 14px;
+  color: #2E7D32;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.pwa-install-benefits li:last-child {
+  margin-bottom: 0;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .pwa-install-modal {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .pwa-install-header {
+    padding: 18px 20px;
+  }
+
+  .pwa-install-header h2 {
+    font-size: 20px;
+  }
+
+  .pwa-install-content {
+    padding: 20px;
+  }
+
+  .pwa-install-steps {
+    padding: 16px;
+  }
+
+  .pwa-install-steps h3 {
+    font-size: 16px;
+  }
+}
+
+/* Desktop: Center modal */
+@media (min-width: 768px) {
+  .pwa-install-modal-overlay {
+    align-items: center;
+  }
+
+  .pwa-install-modal {
+    border-radius: 20px;
+    max-height: 85vh;
+  }
+}
+

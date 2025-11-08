@@ -1,0 +1,294 @@
+/* Share Modal Styles */
+
+.share-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(41, 53, 86, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.share-modal {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.share-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #E6E6FA;
+}
+
+.share-modal-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #293556;
+  margin: 0;
+}
+
+.share-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #7B68B6;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-modal-close:hover {
+  background: rgba(123, 104, 182, 0.1);
+}
+
+.share-modal-close:active {
+  transform: scale(0.95);
+}
+
+.share-modal-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.share-exercise-preview {
+  background: linear-gradient(135deg, #F8F9FF 0%, #F0F2FF 100%);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid #E6E6FA;
+}
+
+.share-exercise-preview h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #293556;
+  margin: 0 0 12px 0;
+  line-height: 1.3;
+}
+
+.share-exercise-meta {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.share-exercise-meta span {
+  font-size: 14px;
+  color: #7B68B6;
+  font-weight: 500;
+}
+
+.share-exercise-description {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.share-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.share-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: white;
+  border: 2px solid #E6E6FA;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 72px;
+}
+
+.share-option:hover {
+  border-color: #7B68B6;
+  background: #F8F9FF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(123, 104, 182, 0.15);
+}
+
+.share-option:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(123, 104, 182, 0.1);
+}
+
+.share-option-primary {
+  background: linear-gradient(135deg, #7B68B6 0%, #5A4A8A 100%);
+  border-color: #7B68B6;
+  color: white;
+}
+
+.share-option-primary:hover {
+  background: linear-gradient(135deg, #8B7AC6 0%, #6A5A9A 100%);
+  border-color: #8B7AC6;
+  color: white;
+}
+
+.share-option-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(123, 104, 182, 0.1);
+  border-radius: 12px;
+}
+
+.share-option-primary .share-option-icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.share-option-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.share-option-content strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: #293556;
+  display: block;
+}
+
+.share-option-primary .share-option-content strong {
+  color: white;
+}
+
+.share-option-content span {
+  font-size: 14px;
+  color: #7B68B6;
+  display: block;
+}
+
+.share-option-primary .share-option-content span {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.share-success {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #E8F5E9;
+  border: 1px solid #4CAF50;
+  border-radius: 8px;
+  color: #2E7D32;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .share-modal {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .share-modal-header {
+    padding: 18px 20px;
+  }
+
+  .share-modal-header h2 {
+    font-size: 20px;
+  }
+
+  .share-modal-content {
+    padding: 20px;
+  }
+
+  .share-exercise-preview {
+    padding: 16px;
+  }
+
+  .share-exercise-preview h3 {
+    font-size: 18px;
+  }
+
+  .share-option {
+    padding: 14px 16px;
+    min-height: 68px;
+  }
+
+  .share-option-icon {
+    font-size: 24px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Desktop: Center modal */
+@media (min-width: 768px) {
+  .share-modal-overlay {
+    align-items: center;
+  }
+
+  .share-modal {
+    border-radius: 20px;
+    max-height: 85vh;
+  }
+}
+
