@@ -5,6 +5,7 @@ import DesktopInstallBanner from './components/DesktopInstallBanner';
 import BrandLink from './components/BrandLink';
 import PWAInstallModal from './components/PWAInstallModal';
 import DownloadIcon from './components/DownloadIcon';
+import { usePWAInstall } from './hooks/usePWAInstall';
 
 /**
  * Main App Component
@@ -707,6 +708,7 @@ const App = () => {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [filter, setFilter] = useState('all'); // 'all', '1-3min', '5-10min', '10+min'
   const [pwaInstallModalOpen, setPwaInstallModalOpen] = useState(false);
+  const { showInstallButton } = usePWAInstall();
 
   // Filter exercises by duration
   const filteredExercises = exercises.filter(ex => {
@@ -732,14 +734,16 @@ const App = () => {
           </div>
           <div className="header-right">
             <BrandLink variant="header" />
-            <button 
-              className="install-app-button"
-              onClick={() => setPwaInstallModalOpen(true)}
-              aria-label="Ladda ned app"
-            >
-              <DownloadIcon />
-              <span>Ladda ned app</span>
-            </button>
+            {showInstallButton && (
+              <button 
+                className="install-app-button"
+                onClick={() => setPwaInstallModalOpen(true)}
+                aria-label="Ladda ned app"
+              >
+                <DownloadIcon />
+                <span>Ladda ned app</span>
+              </button>
+            )}
           </div>
         </div>
       </header>

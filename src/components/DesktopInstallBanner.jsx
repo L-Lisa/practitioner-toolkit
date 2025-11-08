@@ -5,12 +5,23 @@ import './DesktopInstallBanner.css';
  * DesktopInstallBanner
  * Shows install instructions for desktop users
  * Dismissible and only shows on desktop viewports
+ * Automatically hides if PWA is already installed
  */
 export default function DesktopInstallBanner() {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
+    // Check if PWA is already installed (standalone mode)
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    const isIOSStandalone = window.navigator.standalone === true;
+    const isMinimalUI = window.matchMedia('(display-mode: minimal-ui)').matches;
+    
+    if (isStandalone || isIOSStandalone || isMinimalUI) {
+      setIsVisible(false);
+      return;
+    }
+
     // Check if dismissed in localStorage
     const dismissed = localStorage.getItem('desktop-install-dismissed');
     if (dismissed) {
