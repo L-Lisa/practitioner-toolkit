@@ -87,6 +87,24 @@
   transform: scale(0.95);
 }
 
+.share-modal-close:focus-visible {
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.share-option:focus-visible {
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
+  border-radius: var(--radius-md);
+}
+
+.share-option:disabled:focus-visible {
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
+  opacity: 0.6;
+}
+
 .share-modal-content {
   padding: 24px;
   overflow-y: auto;

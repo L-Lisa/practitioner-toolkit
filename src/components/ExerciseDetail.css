@@ -114,8 +114,8 @@
 }
 
 .back-button:focus-visible {
-  outline: 2px solid var(--color-purple);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
   border-radius: 4px;
 }
 
@@ -146,8 +146,8 @@
 }
 
 .duration-toggle-button:focus-visible {
-  outline: 2px solid var(--color-purple);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
 }
 
 .share-button {
@@ -177,8 +177,8 @@
 }
 
 .share-button:focus-visible {
-  outline: 2px solid var(--color-purple);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
 }
 
 /* ============================================
@@ -293,8 +293,8 @@
 }
 
 .expand-all-toggle:focus-visible {
-  outline: 2px solid var(--color-purple);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
 }
 
 /* ============================================
@@ -809,7 +809,7 @@
 
 .jump-to-script-button:focus-visible {
   outline: 3px solid var(--color-purple);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* Mobile-specific adjustments (very small screens) */
@@ -913,8 +913,8 @@
    ============================================ */
 
 :focus-visible {
-  outline: 2px solid var(--color-purple);
-  outline-offset: 4px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
   border-radius: 4px;
 }
 

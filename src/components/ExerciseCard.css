@@ -28,8 +28,8 @@
 }
 
 .exercise-card:focus-visible {
-  outline: 2px solid var(--color-purple);
-  outline-offset: 4px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
 }
 
 /* Meta Bar */

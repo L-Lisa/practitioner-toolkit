@@ -114,6 +114,13 @@
   transform: scale(0.95);
 }
 
+.desktop-install-close:focus-visible {
+  outline: 3px solid var(--color-white);
+  outline-offset: 3px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.3);
+}
+
 /* Adjust app padding when banner is visible */
 .app:has(+ .desktop-install-banner),
 .app > .desktop-install-banner ~ * {

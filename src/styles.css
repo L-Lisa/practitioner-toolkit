@@ -313,8 +313,8 @@ body {
 }
 
 .duration-dropdown:focus-visible {
-  outline: 2px solid var(--color-purple);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
   border-color: var(--color-purple);
   box-shadow: 0 0 0 3px rgba(123, 104, 182, 0.1);
 }
@@ -606,18 +606,26 @@ a, button {
 
 .skip-link:focus {
   top: 0;
-  outline: 3px solid #7B68B6;
-  outline-offset: 2px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
 }
 
-/* Focus styles for all interactive elements */
+/* Focus styles for all interactive elements - Enhanced visibility for accessibility */
 button:focus-visible,
 a:focus-visible,
 select:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid var(--color-purple);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Ensure disabled buttons are still focusable for accessibility */
+button:disabled:focus-visible {
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
+  opacity: 0.6;
 }
 
 /* Exercise card button - make it look like the card but be accessible */
@@ -633,9 +641,9 @@ textarea:focus-visible {
 }
 
 .exercise-card-button:focus-visible {
-  outline: 2px solid var(--color-purple);
-  outline-offset: 2px;
-  border-radius: 12px;
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
+  border-radius: var(--radius-md);
 }
 
 /* Dark mode support (optional) */

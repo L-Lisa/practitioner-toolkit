@@ -87,6 +87,12 @@
   transform: scale(0.95);
 }
 
+.pwa-install-close:focus-visible {
+  outline: 3px solid var(--color-purple);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
 .pwa-install-content {
   padding: 24px;
   overflow-y: auto;

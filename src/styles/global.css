@@ -91,10 +91,12 @@ body {
   }
 }
 
-/* Focus styles for accessibility */
+/* Focus styles for accessibility - Enhanced visibility (3px for better contrast) */
+/* Note: Using purple for better visibility and consistency with main styles */
 :focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+  outline: 3px solid #7B68B6; /* Purple - better visibility than navy */
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
 }
 
 /* Hide scrollbar but allow scrolling (iOS style) */
