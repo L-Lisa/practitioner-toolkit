@@ -22,21 +22,27 @@ export default function PWAInstallModal({ isOpen, onClose }) {
   const isDesktop = window.innerWidth >= 768;
 
   return (
-    <div className="pwa-install-modal-overlay">
+    <div 
+      className="pwa-install-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pwa-install-modal-title"
+      aria-describedby="pwa-install-modal-description"
+    >
       <div className="pwa-install-modal" ref={modalRef}>
         <div className="pwa-install-header">
-          <h2>Ladda ned app</h2>
+          <h2 id="pwa-install-modal-title">Ladda ned app</h2>
           <button
             className="pwa-install-close"
             onClick={onClose}
-            aria-label="Stäng"
+            aria-label="Stäng installationsdialog"
           >
             ✕
           </button>
         </div>
 
-        <div className="pwa-install-content">
-          <div className="pwa-install-icon">📱</div>
+        <div className="pwa-install-content" id="pwa-install-modal-description">
+          <div className="pwa-install-icon" aria-hidden="true">📱</div>
           
           <p className="pwa-install-intro">
             Installera denna app på din enhet för snabbare åtkomst och bättre upplevelse.

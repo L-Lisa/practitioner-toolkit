@@ -13,7 +13,7 @@ export default function BrandLink({ variant = 'header' }) {
       target="_blank"
       rel="noopener noreferrer"
       className={`brand-link brand-link-${variant}`}
-      aria-label="Besök Mindfulnessguiden.se"
+      aria-label="Besök Mindfulnessguiden.se (öppnas i ny flik)"
     >
       <img
         src="/logo_transparent.webp"

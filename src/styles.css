@@ -2,6 +2,67 @@
 /* Mobile-first, Swedish brand colors, scientific credibility */
 
 /* ============================================
+   CSS CUSTOM PROPERTIES (THEME VARIABLES)
+   ============================================ */
+:root {
+  /* Colors */
+  --color-navy: #293556;
+  --color-navy-dark: #3a4a6f;
+  --color-purple: #7B68B6;
+  --color-purple-dark: #5A4A8A;
+  --color-cream: #F6F4EA;
+  --color-lavender: #E6E6FA;
+  --color-lavender-light: #F0F2FF;
+  --color-white: #FFFFFF;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-4xl: 40px;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 50%;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(41, 53, 86, 0.05);
+  --shadow-md: 0 2px 8px rgba(41, 53, 86, 0.08), 0 1px 3px rgba(41, 53, 86, 0.05);
+  --shadow-lg: 0 4px 16px rgba(41, 53, 86, 0.12), 0 2px 6px rgba(41, 53, 86, 0.08);
+  --shadow-xl: 0 6px 20px rgba(41, 53, 86, 0.4);
+  
+  /* Typography */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 28px;
+  --font-size-4xl: 32px;
+  --font-size-5xl: 34px;
+  --font-size-6xl: 42px;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.3s ease;
+  
+  /* Z-index */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 1000;
+  --z-modal: 10000;
+}
+
+/* ============================================
    GLOBAL STYLES & RESET
    ============================================ */
 
@@ -13,19 +74,39 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: #F6F4EA; /* Cream background */
-  color: #293556; /* Navy text */
+  background: var(--color-cream);
+  color: var(--color-navy);
+  font-size: var(--font-size-base); /* iOS HIG: Minimum readable size */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* iOS safe area insets - handled at container level, not body */
+  /* Removed body padding to avoid double padding with container-level safe areas */
 }
 
 .app {
   max-width: 600px;
   margin: 0 auto;
+  /* Fallback padding for browsers without env() support */
   padding: 16px;
+  /* iOS safe area insets - add padding for devices with notches */
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 
+           calc(16px + env(safe-area-inset-right, 0px)) 
+           calc(16px + env(safe-area-inset-bottom, 0px)) 
+           calc(16px + env(safe-area-inset-left, 0px));
+  /* Fallback min-height */
   min-height: 100vh;
+  /* iOS safe area insets for height */
+  min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
   position: relative;
+  /* Ensure content doesn't get cut off on small screens */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Position skip link relative to app container */
+.app > .skip-link {
+  position: absolute;
 }
 
 /* Adjust padding when desktop banner is visible */
@@ -41,10 +122,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid #E6E6FA;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--color-lavender);
   flex-wrap: wrap;
 }
 
@@ -72,29 +153,31 @@ body {
 }
 
 .app-header h1 {
-  font-size: 24px;
+  font-size: var(--font-size-2xl);
   font-weight: 700;
-  color: #293556;
+  color: var(--color-navy);
   line-height: 1.3;
   margin: 0;
 }
 
 .install-app-button {
-  font-size: 14px;
-  color: #293556;
+  font-size: 15px; /* iOS HIG: Minimum readable button text */
+  color: var(--color-navy);
   font-weight: 500;
-  background: #E6E6FA;
-  border: 2px solid #E6E6FA;
-  padding: 8px 14px;
+  background: var(--color-lavender);
+  border: 2px solid var(--color-lavender);
+  padding: 10px 16px; /* Increased padding for better touch target */
   border-radius: 20px;
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(41, 53, 86, 0.1); /* Better mobile touch feedback */
   min-height: 44px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  /* Ensure text doesn't get too small on very small screens */
+  font-size: clamp(14px, 4vw, 15px);
 }
 
 .install-app-button .download-icon {
@@ -104,13 +187,13 @@ body {
 }
 
 .install-app-button:hover {
-  background: #7B68B6;
-  color: white;
-  border-color: #7B68B6;
+  background: var(--color-purple);
+  color: var(--color-white);
+  border-color: var(--color-purple);
 }
 
 .install-app-button:hover .download-icon {
-  color: white;
+  color: var(--color-white);
 }
 
 .install-app-button:active {
@@ -192,14 +275,14 @@ body {
 .filter-label {
   font-size: 16px;
   font-weight: 600;
-  color: #293556;
+  color: var(--color-navy);
   white-space: nowrap;
 }
 
 .duration-dropdown {
-  background: white;
-  border: 2px solid #E6E6FA;
-  color: #293556;
+  background: var(--color-white);
+  border: 2px solid var(--color-lavender);
+  color: var(--color-navy);
   padding: 10px 20px;
   padding-right: 40px;
   border-radius: 24px;
@@ -219,14 +302,20 @@ body {
 }
 
 .duration-dropdown:hover {
-  background-color: #F8F9FF;
-  border-color: #7B68B6;
+  background-color: var(--color-lavender-light);
+  border-color: var(--color-purple);
   box-shadow: 0 2px 6px rgba(41, 53, 86, 0.1);
 }
 
 .duration-dropdown:focus {
-  outline: none;
-  border-color: #7B68B6;
+  border-color: var(--color-purple);
+  box-shadow: 0 0 0 3px rgba(123, 104, 182, 0.1);
+}
+
+.duration-dropdown:focus-visible {
+  outline: 2px solid var(--color-purple);
+  outline-offset: 2px;
+  border-color: var(--color-purple);
   box-shadow: 0 0 0 3px rgba(123, 104, 182, 0.1);
 }
 
@@ -245,7 +334,7 @@ body {
    ============================================ */
 
 .exercise-list h3 {
-  font-size: 14px;
+  font-size: 15px; /* Increased from 14px for better mobile readability */
   font-weight: 700;
   letter-spacing: 1px;
   color: #5A4A8A; /* Darker purple for WCAG AA compliance */
@@ -267,86 +356,26 @@ body {
 .competency-group h4 {
   font-size: 18px;
   font-weight: 600;
-  color: #293556;
+  color: var(--color-navy);
   margin-bottom: 12px;
   padding: 8px 0;
   border-bottom: 2px solid #E6E6FA;
 }
 
 /* ============================================
-   EXERCISE CARD (from ExerciseCard.css)
+   SHARED EXERCISE STYLES
    ============================================ */
+/* Note: ExerciseCard-specific styles are in ExerciseCard.css */
 
-.exercise-card {
-  background: #E6E6FA;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
-
-.exercise-card:active {
-  transform: scale(0.98);
-  box-shadow: 0 1px 4px rgba(41, 53, 86, 0.15);
-}
-
-.card-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  gap: 8px;
-}
-
+/* Duration badge - shared between ExerciseCard and ExerciseDetail */
 .duration-badge {
-  background: #F6F4EA;
-  color: #293556;
-  padding: 4px 12px;
-  border-radius: 16px;
-  font-size: 12px;
+  background: var(--color-cream);
+  color: var(--color-navy);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xs);
   font-weight: 500;
   white-space: nowrap;
-}
-
-.card-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #293556;
-  line-height: 1.2;
-  margin: 0 0 8px 0;
-}
-
-.card-competency {
-  font-size: 14px;
-  color: #7B68B6;
-  font-weight: 500;
-  margin: 0 0 12px 0;
-  text-transform: capitalize;
-}
-
-.card-benefit {
-  font-size: 16px;
-  color: #293556;
-  line-height: 1.5;
-  margin: 0 0 16px 0;
-  opacity: 0.9;
-}
-
-.card-link {
-  color: #293556;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 16px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: gap 0.2s ease;
-}
-
-.card-link:hover {
-  gap: 8px;
 }
 
 /* ============================================
@@ -356,20 +385,21 @@ body {
 /* ExerciseDetail styles moved to ExerciseDetail.css to avoid conflicts */
 /* Keeping only shared/global styles here */
 
+/* .detail-meta is now handled by ExerciseMeta component - keeping for backward compatibility */
 .detail-meta {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
 }
 
 .competency-badge {
-  background: #7B68B6; /* Purple */
-  color: white;
-  padding: 4px 12px;
-  border-radius: 16px;
-  font-size: 12px;
+  background: var(--color-purple);
+  color: var(--color-white);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xs);
   font-weight: 500;
   white-space: nowrap;
 }
@@ -377,7 +407,7 @@ body {
 .detail-title {
   font-size: 32px;
   font-weight: 700;
-  color: #293556;
+  color: var(--color-navy);
   line-height: 1.2;
   margin-bottom: 8px;
 }
@@ -406,7 +436,7 @@ body {
 .section-icon {
   font-size: 20px;
   font-weight: 600;
-  color: #293556;
+  color: var(--color-navy);
   margin-bottom: 12px;
   line-height: 1.3;
 }
@@ -414,7 +444,7 @@ body {
 .section-content {
   font-size: 18px;
   line-height: 1.6;
-  color: #293556;
+  color: var(--color-navy);
 }
 
 /* Research Section */
@@ -442,7 +472,7 @@ body {
 .research-level {
   font-size: 16px;
   font-weight: 600;
-  color: #293556;
+  color: var(--color-navy);
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(41, 53, 86, 0.1);
@@ -451,7 +481,7 @@ body {
 .research-content h3 {
   font-size: 16px;
   font-weight: 600;
-  color: #293556;
+  color: var(--color-navy);
   margin: 16px 0 8px 0;
 }
 
@@ -465,7 +495,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 8px;
-  color: #293556;
+  color: var(--color-navy);
 }
 
 .research-source {
@@ -479,7 +509,7 @@ body {
 .instructions-content {
   font-size: 18px;
   line-height: 1.8;
-  color: #293556;
+  color: var(--color-navy);
   white-space: pre-wrap;
 }
 
@@ -502,7 +532,7 @@ body {
   line-height: 1.6;
   padding: 12px 0 12px 28px;
   position: relative;
-  color: #293556;
+  color: var(--color-navy);
   border-bottom: 1px solid #E6E6FA;
 }
 
@@ -536,19 +566,6 @@ body {
     font-size: 28px;
   }
 
-  .exercise-card {
-    padding: 24px;
-    margin-bottom: 20px;
-  }
-
-  .card-title {
-    font-size: 28px;
-  }
-
-  .card-benefit {
-    font-size: 18px;
-  }
-
   .detail-title {
     font-size: 36px;
   }
@@ -573,9 +590,52 @@ a, button {
   -webkit-tap-highlight-color: rgba(41, 53, 86, 0.1);
 }
 
-:focus-visible {
-  outline: 2px solid #7B68B6;
+/* Skip to content link - hidden until focused */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #293556;
+  color: var(--color-white);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 10000;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #7B68B6;
   outline-offset: 2px;
+}
+
+/* Focus styles for all interactive elements */
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-purple);
+  outline-offset: 2px;
+}
+
+/* Exercise card button - make it look like the card but be accessible */
+.exercise-card-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  display: block;
+}
+
+.exercise-card-button:focus-visible {
+  outline: 2px solid var(--color-purple);
+  outline-offset: 2px;
+  border-radius: 12px;
 }
 
 /* Dark mode support (optional) */
@@ -604,13 +664,13 @@ a, button {
   
   .filter-buttons button {
     background: #293556;
-    border-color: #7B68B6;
+    border-color: var(--color-purple);
     color: #E6E6FA;
   }
   
   .filter-buttons button.active {
     background: #7B68B6;
-    border-color: #7B68B6;
+    border-color: var(--color-purple);
   }
 }
 

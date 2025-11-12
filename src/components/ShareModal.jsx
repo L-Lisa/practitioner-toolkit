@@ -12,6 +12,7 @@ import { useModal } from '../hooks/useModal';
 export default function ShareModal({ exercise, isOpen, onClose }) {
   const [copied, setCopied] = useState(false);
   const [shareMethod, setShareMethod] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const modalRef = useModal(isOpen, onClose);
 
   const exerciseUrl = `${window.location.origin}${window.location.pathname}#exercise-${exercise.id}`;
@@ -33,6 +34,7 @@ Hoppas den kan vara till nytta! 🙏`;
 
   const handleNativeShare = async () => {
     if (navigator.share) {
+      setIsLoading(true);
       try {
         await navigator.share({
           title: shareTitle,
@@ -43,8 +45,10 @@ Hoppas den kan vara till nytta! 🙏`;
         setTimeout(() => {
           onClose();
           setShareMethod(null);
+          setIsLoading(false);
         }, 500);
       } catch (err) {
+        setIsLoading(false);
         // User cancelled or error
         if (err.name !== 'AbortError') {
           console.error('Share error:', err);
@@ -54,10 +58,12 @@ Hoppas den kan vara till nytta! 🙏`;
   };
 
   const handleCopyLink = async () => {
+    setIsLoading(true);
     try {
       await navigator.clipboard.writeText(exerciseUrl);
       setCopied(true);
       setShareMethod('copy');
+      setIsLoading(false);
       setTimeout(() => {
         setCopied(false);
         onClose();
@@ -76,6 +82,7 @@ Hoppas den kan vara till nytta! 🙏`;
         document.execCommand('copy');
         setCopied(true);
         setShareMethod('copy');
+        setIsLoading(false);
         setTimeout(() => {
           setCopied(false);
           onClose();
@@ -83,6 +90,7 @@ Hoppas den kan vara till nytta! 🙏`;
         }, 1500);
       } catch (e) {
         console.error('Fallback copy failed:', e);
+        setIsLoading(false);
       }
       document.body.removeChild(textArea);
     }
@@ -90,6 +98,7 @@ Hoppas den kan vara till nytta! 🙏`;
 
   const handleShareWithColleague = async () => {
     const message = colleagueMessage;
+    setIsLoading(true);
     
     if (navigator.share) {
       try {
@@ -98,17 +107,21 @@ Hoppas den kan vara till nytta! 🙏`;
           text: message,
         });
         setShareMethod('colleague');
+        setIsLoading(false);
         setTimeout(() => {
           onClose();
           setShareMethod(null);
         }, 500);
       } catch (err) {
+        setIsLoading(false);
         if (err.name !== 'AbortError') {
           // Fallback: copy message to clipboard
+          setIsLoading(true);
           try {
             await navigator.clipboard.writeText(message);
             setCopied(true);
             setShareMethod('colleague-copy');
+            setIsLoading(false);
             setTimeout(() => {
               setCopied(false);
               onClose();
@@ -116,6 +129,7 @@ Hoppas den kan vara till nytta! 🙏`;
             }, 2000);
           } catch (copyErr) {
             console.error('Copy error:', copyErr);
+            setIsLoading(false);
           }
         }
       }
@@ -125,6 +139,7 @@ Hoppas den kan vara till nytta! 🙏`;
         await navigator.clipboard.writeText(message);
         setCopied(true);
         setShareMethod('colleague-copy');
+        setIsLoading(false);
         setTimeout(() => {
           setCopied(false);
           onClose();
@@ -132,6 +147,7 @@ Hoppas den kan vara till nytta! 🙏`;
         }, 2000);
       } catch (err) {
         console.error('Copy error:', err);
+        setIsLoading(false);
       }
     }
   };
@@ -141,21 +157,27 @@ Hoppas den kan vara till nytta! 🙏`;
   const hasNativeShare = navigator.share;
 
   return (
-    <div className="share-modal-overlay">
+    <div 
+      className="share-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="share-modal-title"
+      aria-describedby="share-modal-description"
+    >
       <div className="share-modal" ref={modalRef}>
         <div className="share-modal-header">
-          <h2>Dela övning</h2>
+          <h2 id="share-modal-title">Dela övning</h2>
           <button
             className="share-modal-close"
             onClick={onClose}
-            aria-label="Stäng"
+            aria-label="Stäng delningsdialog"
           >
             ✕
           </button>
         </div>
 
         <div className="share-modal-content">
-          <div className="share-exercise-preview">
+          <div className="share-exercise-preview" id="share-modal-description">
             <h3>{exercise.title}</h3>
             <p className="share-exercise-meta">
               <span>⏱️ {exercise.duration}</span>
@@ -164,16 +186,18 @@ Hoppas den kan vara till nytta! 🙏`;
             <p className="share-exercise-description">{exercise.oneLiner}</p>
           </div>
 
-          <div className="share-options">
+          <div className="share-options" role="group" aria-label="Delningsalternativ">
             {hasNativeShare && (
               <button
                 className="share-option share-option-primary"
                 onClick={handleNativeShare}
+                aria-label="Dela via systemfunktioner"
+                disabled={isLoading}
               >
-                <span className="share-option-icon">📤</span>
+                <span className="share-option-icon" aria-hidden="true">📤</span>
                 <div className="share-option-content">
                   <strong>Dela via...</strong>
-                  <span>Använd din appar eller meddelanden</span>
+                  <span>{isLoading ? 'Bearbetar...' : 'Använd din appar eller meddelanden'}</span>
                 </div>
               </button>
             )}
@@ -181,22 +205,27 @@ Hoppas den kan vara till nytta! 🙏`;
             <button
               className="share-option"
               onClick={handleShareWithColleague}
+              aria-label="Dela med en kollega med förifyllt meddelande"
+              disabled={isLoading}
             >
-              <span className="share-option-icon">👥</span>
+              <span className="share-option-icon" aria-hidden="true">👥</span>
               <div className="share-option-content">
                 <strong>Dela med en kollega</strong>
-                <span>Med förifyllt meddelande</span>
+                <span>{isLoading ? 'Bearbetar...' : 'Med förifyllt meddelande'}</span>
               </div>
             </button>
 
             <button
               className="share-option"
               onClick={handleCopyLink}
+              aria-label={copied ? 'Länk kopierad' : 'Kopiera länk till urklipp'}
+              aria-live="polite"
+              disabled={isLoading}
             >
-              <span className="share-option-icon">🔗</span>
+              <span className="share-option-icon" aria-hidden="true">🔗</span>
               <div className="share-option-content">
                 <strong>Kopiera länk</strong>
-                <span>{copied ? 'Kopierad!' : 'Kopiera till urklipp'}</span>
+                <span>{isLoading ? 'Kopierar...' : copied ? 'Kopierad!' : 'Kopiera till urklipp'}</span>
               </div>
             </button>
           </div>

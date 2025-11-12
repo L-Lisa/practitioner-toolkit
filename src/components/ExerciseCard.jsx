@@ -1,4 +1,5 @@
 import './ExerciseCard.css';
+import DurationBadge from './DurationBadge';
 
 /**
  * ExerciseCard Component
@@ -18,7 +19,7 @@ const ExerciseCard = ({ exercise }) => {
     <div className="exercise-card">
       {/* Duration Badge */}
       <div className="card-meta">
-        <span className="duration-badge">⏱️ {duration}</span>
+        <DurationBadge duration={duration} />
       </div>
 
       {/* Exercise Title */}

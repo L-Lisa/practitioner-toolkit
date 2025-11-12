@@ -35,12 +35,13 @@ export function useModal(isOpen, onClose) {
     };
 
     // Small delay to prevent immediate close on open
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       document.addEventListener('mousedown', handleClickOutside);
       document.addEventListener('touchstart', handleClickOutside);
     }, 100);
 
     return () => {
+      clearTimeout(timeoutId);
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };

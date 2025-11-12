@@ -1,0 +1,14 @@
+/* DurationBadge Component Styles */
+/* Shared styles - also defined in styles.css for global use */
+
+.duration-badge {
+  background: var(--color-cream);
+  color: var(--color-navy);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  display: inline-block;
+}
+

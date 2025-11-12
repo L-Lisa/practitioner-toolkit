@@ -6,6 +6,8 @@ import BrandLink from './BrandLink';
 import ShareModal from './ShareModal';
 import ResearchIcon from './ResearchIcon';
 import ExpandIcon from './ExpandIcon';
+import ExerciseMeta from './ExerciseMeta';
+import CollapsibleSection from './CollapsibleSection';
 import { updateMetaTags, resetMetaTags } from '../utils/metaTags';
 
 /**
@@ -190,12 +192,16 @@ const ExerciseDetail = ({ exercise, onBack }) => {
   const researchSourceText = exercise.research?.source?.replace(/(https?:\/\/[^\s]+|www\.[^\s]+)/gi, '').trim() || exercise.research?.source;
 
   return (
-    <div className={`exercise-detail ${showQuickRef && scriptMode ? 'has-quick-ref' : ''}`} ref={contentRef}>
+    <main className={`exercise-detail ${showQuickRef && scriptMode ? 'has-quick-ref' : ''}`} ref={contentRef} role="main" aria-label={`Detaljer för ${exercise.title}`}>
       <DesktopInstallBanner />
+      {/* Skip to content link */}
+      <a href="#exercise-content" className="skip-link">
+        Hoppa till övningsinnehåll
+      </a>
       {/* Quick Reference Bar (sticky, shows in script mode when scrolling) */}
       {showQuickRef && scriptMode && (
-        <div className="quick-ref-bar" ref={quickRefBarRef}>
-          <button className="quick-ref-back" onClick={onBack} aria-label="Tillbaka">
+        <div className="quick-ref-bar" ref={quickRefBarRef} role="banner" aria-label="Snabbmeny">
+          <button className="quick-ref-back" onClick={onBack} aria-label="Tillbaka till övningslista">
             ←
           </button>
           <div className="quick-ref-title">{exercise.title}</div>
@@ -204,7 +210,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
       )}
 
       {/* Header */}
-      <div className="detail-header">
+      <header className="detail-header" role="banner">
         <button className="back-button" onClick={onBack}>
           ← Tillbaka
         </button>
@@ -218,7 +224,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
                 const nextIndex = (currentIndex + 1) % durationOptions.length;
                 setSelectedDuration(durationOptions[nextIndex]);
               }}
-              aria-label="Ändra varaktighet"
+              aria-label={`Ändra varaktighet. Nuvarande: ${selectedDuration}. Klicka för att växla till ${durationOptions[(durationOptions.findIndex(d => d === selectedDuration) + 1) % durationOptions.length]}`}
             >
               ⏱️ {selectedDuration}
             </button>
@@ -232,19 +238,22 @@ const ExerciseDetail = ({ exercise, onBack }) => {
             <ShareIcon />
           </button>
         </div>
-      </div>
+      </header>
 
       {/* Meta Bar */}
-      <div className="detail-meta">
-        <span className="duration-badge">⏱️ {selectedDuration}</span>
-        <span className="competency-badge">{exercise.competency}</span>
-      </div>
+      <ExerciseMeta 
+        duration={selectedDuration} 
+        competency={exercise.competency}
+        className="detail-meta"
+      />
 
       {/* Title */}
       <h1 className="detail-title">{exercise.title}</h1>
 
+      {/* Exercise Content */}
+      <div id="exercise-content">
       {/* Script Mode Toggle & Expand All Toggle */}
-      <div className="mode-toggle-container">
+      <div className="mode-toggle-container" role="toolbar" aria-label="Vylägesalternativ">
         <button 
           className={`mode-toggle ${scriptMode ? 'active' : ''}`}
           onClick={() => setScriptMode(!scriptMode)}
@@ -293,73 +302,67 @@ const ExerciseDetail = ({ exercise, onBack }) => {
 
           {/* Research Section (Collapsible) */}
           <section className="detail-section section-card">
-            <button 
-              className="research-toggle"
-              onClick={() => setResearchExpanded(!researchExpanded)}
+            <CollapsibleSection
+              title="FORSKNINGSBAKGRUND"
+              icon="🔬"
+              isExpanded={researchExpanded}
+              onToggle={() => setResearchExpanded(!researchExpanded)}
+              toggleClassName="research-toggle"
+              contentClassName="research-content"
             >
-              <h2 className="section-icon">
-                🔬 FORSKNINGSBAKGRUND {researchExpanded ? '▲' : '▼'}
-              </h2>
-            </button>
-
-            {researchExpanded && (
-              <div className="research-content">
-                <div className="research-level">
-                  <ResearchIcon />
-                  <span>{exercise.research.summary}</span>
-                </div>
-                
-                <h3>➕ POSITIVA FYND:</h3>
-                <ul>
-                  {exercise.research.findings.map((finding, index) => (
-                    <li key={index}>{finding}</li>
-                  ))}
-                </ul>
-
-                {exercise.research.limitations && (
-                  <>
-                    <h3>➖ BEGRÄNSNINGAR:</h3>
-                    <p>{exercise.research.limitations}</p>
-                  </>
-                )}
-
-                <h3>📚 KÄLLA:</h3>
-                <p className="research-source">
-                  {researchUrl ? (
-                    <>
-                      <a 
-                        href={researchUrl.startsWith('http') ? researchUrl : `https://${researchUrl}`}
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="research-link"
-                      >
-                        {researchSourceText}
-                      </a>
-                      <span className="research-url-hint"> (klicka för att öppna länk)</span>
-                    </>
-                  ) : (
-                    researchSourceText
-                  )}
-                </p>
+              <div className="research-level">
+                <ResearchIcon />
+                <span>{exercise.research.summary}</span>
               </div>
-            )}
+              
+              <h3>➕ POSITIVA FYND:</h3>
+              <ul>
+                {exercise.research.findings.map((finding, index) => (
+                  <li key={index}>{finding}</li>
+                ))}
+              </ul>
+
+              {exercise.research.limitations && (
+                <>
+                  <h3>➖ BEGRÄNSNINGAR:</h3>
+                  <p>{exercise.research.limitations}</p>
+                </>
+              )}
+
+              <h3>📚 KÄLLA:</h3>
+              <p className="research-source">
+                {researchUrl ? (
+                  <>
+                    <a 
+                      href={researchUrl.startsWith('http') ? researchUrl : `https://${researchUrl}`}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="research-link"
+                      aria-label={`${researchSourceText} (öppnas i ny flik)`}
+                    >
+                      {researchSourceText}
+                    </a>
+                    <span className="research-url-hint" aria-hidden="true"> (klicka för att öppna länk)</span>
+                  </>
+                ) : (
+                  researchSourceText
+                )}
+              </p>
+            </CollapsibleSection>
           </section>
 
           {/* How to Facilitate Section - Collapsible */}
           <section className="detail-section section-card">
-            <button 
-              className="facilitation-toggle"
-              onClick={() => setFacilitationExpanded(!facilitationExpanded)}
+            <CollapsibleSection
+              title="HUR FACILITERA?"
+              icon="📝"
+              isExpanded={facilitationExpanded}
+              onToggle={() => setFacilitationExpanded(!facilitationExpanded)}
+              toggleClassName="facilitation-toggle"
+              contentClassName="facilitation-notes"
             >
-              <h2 className="section-icon">
-                📝 HUR FACILITERA? {facilitationExpanded ? '▲' : '▼'}
-              </h2>
-            </button>
-            {facilitationExpanded && (
-              <div className="facilitation-notes">
-                {getFacilitationNotes(exercise)}
-              </div>
-            )}
+              {getFacilitationNotes(exercise)}
+            </CollapsibleSection>
           </section>
         </>
       )}
@@ -404,20 +407,15 @@ const ExerciseDetail = ({ exercise, onBack }) => {
           </div>
         ) : (
           <>
-            <button 
-              className="script-toggle"
-              onClick={() => setScriptExpanded(!scriptExpanded)}
+            <CollapsibleSection
+              title="SKRIPT"
+              icon="🎤"
+              count={`${getScriptLineCount(parsedInstructions)} rader`}
+              isExpanded={scriptExpanded}
+              onToggle={() => setScriptExpanded(!scriptExpanded)}
+              toggleClassName="script-toggle"
+              preview={!scriptExpanded ? getScriptPreview(parsedInstructions) : null}
             >
-              <h2 className="section-icon">
-                🎤 SKRIPT ({getScriptLineCount(parsedInstructions)} rader) {scriptExpanded ? '▲' : '▼'}
-              </h2>
-              {!scriptExpanded && (
-                <p className="script-preview">
-                  {getScriptPreview(parsedInstructions)}
-                </p>
-              )}
-            </button>
-            {scriptExpanded && (
               <div className="instructions-content">
                 {parsedInstructions.map((instruction, index) => {
                   if (instruction.type === 'timing') {
@@ -441,28 +439,28 @@ const ExerciseDetail = ({ exercise, onBack }) => {
                   }
                 })}
               </div>
-            )}
+            </CollapsibleSection>
           </>
         )}
       </section>
 
       {!scriptMode && (
         <section className="detail-section section-card">
-          <button 
-            className="when-to-use-toggle"
-            onClick={() => setWhenToUseExpanded(!whenToUseExpanded)}
+          <CollapsibleSection
+            title="NÄR ANVÄNDA"
+            icon="💡"
+            count={`${exercise.whenToUse.length} scenarier`}
+            isExpanded={whenToUseExpanded}
+            onToggle={() => setWhenToUseExpanded(!whenToUseExpanded)}
+            toggleClassName="when-to-use-toggle"
+            contentClassName="when-to-use-content"
           >
-            <h2 className="section-icon">
-              💡 NÄR ANVÄNDA ({exercise.whenToUse.length} scenarier) {whenToUseExpanded ? '▲' : '▼'}
-            </h2>
-          </button>
-          {whenToUseExpanded && (
             <ul className="when-to-use-list">
               {exercise.whenToUse.map((scenario, index) => (
                 <li key={index}>{scenario}</li>
               ))}
             </ul>
-          )}
+          </CollapsibleSection>
         </section>
       )}
 
@@ -505,6 +503,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
         <BrandLink variant="footer" />
       </div>
 
+      </div>
       {/* Bottom spacing */}
       <div className="detail-footer"></div>
 
@@ -514,7 +513,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
         isOpen={shareModalOpen}
         onClose={() => setShareModalOpen(false)}
       />
-    </div>
+    </main>
   );
 };
 
@@ -541,45 +540,45 @@ function parseDurationOptions(duration) {
 // Get exercise-specific facilitation notes - concise, exercise-specific, practitioner-focused
 function getFacilitationNotes(exercise) {
   const notes = {
-    1: { // Stillhetsmeditation
+    'being-still': { // Stillhetsmeditation
       setup: "Känn in gruppens energi först. Rastlöshet eller redan närvaro - båda fungerar. Denna övning skapar utrymme för både.",
       guidance: "Om någon verkar obekväm med stillheten, det är normalt. Vi är vana vid att göra, inte bara vara. Du modellerar just nu att det är säkert att inte ha alla svar. Det är kraftfullt."
     },
-    2: { // Att lägga märke till bedömningar
+    'noticing-judgments': { // Att lägga märke till bedömningar
       setup: "Påminn gruppen att vi alla bedömer - det är inte något att skämmas över. Det handlar om att lära känna mönstren så vi kan välja vårt svar.",
       guidance: "Bedömningar kan kännas jobbiga att erkänna i grupp. När du modellerar att det är okej att märka dem utan att agera, skapar du trygghet för andra att vara ärliga."
     },
-    3: { // STOP-övningen
+    'stop-practice': { // STOP-övningen
       setup: "Nämn att de kan öva nu, men kraften kommer när de använder den i ögonblicket - när emailen kommer, när kollegan avbryter.",
       guidance: "Detta är praktiskt, inte filosofi. Om någon verkar skeptisk, det är okej - de behöver bara prova. Du vet att det fungerar, låt det ge dig trygghet."
     },
-    4: { // Andningsövningar för irritation
+    'breathing-irritation': { // Andningsövningar för irritation
       setup: "De kan göra detta med öppna ögon, mitt i ett möte, utan att någon märker. Nämn att de kan använda den nu, här.",
       guidance: "Det handlar inte om att bli avslappnad - det handlar om att vara med vad som är där. Irritationen kan finnas kvar, och det är okej."
     },
-    5: { // Kroppsskanning för emotionell medvetenhet
+    'body-scan-emotional': { // Kroppsskanning för emotionell medvetenhet
       setup: "Det handlar inte om att hitta rätt svar - 'är det ilska eller stress?' - utan om att bara märka vad som är där. Ibland är det lättare att utforska det man hittar genom att se det som färger eller former. Till exempel att man har en tung klump i magen.",
       guidance: "Låt varje område få sin tid. Om någon verkar obekväm med att känna känslor, påminn dem att de bara behöver märka, inte göra något åt det. Föreslå även att det kan vara en trevlig övning att låta olika förnimmelser ha olika färger eller former."
     },
-    6: { // Känslomärkning
+    'emotion-labeling': { // Känslomärkning
       setup: "De kan göra detta flera gånger per dag, utan att någon märker. De behöver inte sitta ner eller stänga ögonen.",
       guidance: "Om någon verkar förvirrad - 'men vad gör jag sen?' - påminn dem att det är allt. Bara märka. Bara namnge. Hjärnan gör resten. Denna övning fungerar på minst två sätt. 1. Den utvecklar emotionellt medvetande 2. Den uppmuntrar till en kort paus där man slår av den mentala autopiloten."
     },
-    7: { // Reflektion om förgänglighet
+    'impermanence-reflection': { // Reflektion om förgänglighet
       setup: "Det handlar inte om att bli av med känslor eller situationer - det handlar om att förstå att de förändras.",
       guidance: "Om någon verkar motståndskraftig - 'men min situation förändras inte' - det är okej. De behöver inte tro på det. Bara observera. Förändringen händer ändå."
     },
-    8: { // Att bygga motståndskraft genom svårigheter
+    'building-resilience': { // Att bygga motståndskraft genom svårigheter
       setup: "Förklara forskningsgrunden: 'Studier visar att det är acceptans-träning - förmågan att välkomna in svårigheter och sedan släppa taget - som bygger resiliens. Inte avslappning. Inte enbart medvetenhet. Acceptans.' Säkerhet först: Välj 3-5/10 svårighet. Detta är kapacitetsbyggande, inte traumabearbetning.",
       guidance: "Fas 1 (Välkomna in): 'Detta är där vi tränar acceptans. Känslan kommer att vara obehaglig - det är där ni bygger kapacitet.' Fas 2 (Släppa taget): 'Lägg märke till att ni INTE försökte ändra känslan, ändå förändrades den. Detta är beviset på acceptans-mekanismen.' Efter övningen: 'Känslorna är kanske inte borta - det var inte målet. Ni bevisade att ni KAN VARA MED SVÅRIGHETER. Det är resiliens.'"
     },
-    9: { // Att hantera stress med kroppsskanning
+    'body-scan-stress': { // Att hantera stress med kroppsskanning
       setup: "Skapa en lugn miljö. Påminn deltagarna om att kroppsskanning inte handlar om att slappna av 'på kommando', utan om att observera kroppen som den är just nu. Det är okej om de känner spänning eller rastlöshet – det är en del av övningen.",
       guidance: "Förklara att man kommer att vandra genom kroppen med uppmärksamhet. Ingen prestation, bara nyfikenhet. Om sinnet vandrar – kom tillbaka till den del av kroppen ni just fokuserade på. Låt tystnad finnas mellan instruktionerna. Det är bättre att skapa utrymme än att försöka 'fylla' upplevelsen."
     }
   };
 
-  const note = notes[exercise.id];
+  const note = notes[exercise.slug];
   if (!note) {
     // Fallback for exercises without specific notes
     return (

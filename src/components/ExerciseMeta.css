@@ -1,0 +1,21 @@
+/* ExerciseMeta Component Styles */
+
+.exercise-meta {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.competency-badge {
+  background: var(--color-purple);
+  color: var(--color-white);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  display: inline-block;
+}
+

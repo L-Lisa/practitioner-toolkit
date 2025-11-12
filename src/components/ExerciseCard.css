@@ -2,14 +2,14 @@
 /* Mobile-first, Swedish brand colors, scientific credibility */
 
 .exercise-card {
-  background: linear-gradient(135deg, #E6E6FA 0%, #F0F2FF 100%); /* Subtle gradient for depth */
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.08), 0 1px 3px rgba(41, 53, 86, 0.05);
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.2s ease;
+  background: linear-gradient(135deg, var(--color-lavender) 0%, var(--color-lavender-light) 100%);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), 
+              box-shadow var(--transition-base),
+              border-color var(--transition-fast);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -18,18 +18,17 @@
 
 .exercise-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(41, 53, 86, 0.12), 
-              0 2px 6px rgba(41, 53, 86, 0.08);
+  box-shadow: var(--shadow-lg);
   border-color: rgba(123, 104, 182, 0.2);
 }
 
 .exercise-card:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(41, 53, 86, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .exercise-card:focus-visible {
-  outline: 2px solid #7B68B6;
+  outline: 2px solid var(--color-purple);
   outline-offset: 4px;
 }
 
@@ -42,67 +41,68 @@
   gap: 8px;
 }
 
+/* Duration badge styles now in DurationBadge.css - keeping for backward compatibility */
 .duration-badge {
-  background: #F6F4EA; /* Cream - warm accent */
-  color: #293556; /* Navy text */
-  padding: 4px 12px;
-  border-radius: 16px;
-  font-size: 12px;
+  background: var(--color-cream);
+  color: var(--color-navy);
+  padding: 6px var(--spacing-md);
+  border-radius: var(--radius-lg);
+  font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
 }
 
 /* Exercise Title - Largest Element */
 .card-title {
-  font-size: 24px;
+  font-size: var(--font-size-2xl);
   font-weight: 700;
-  color: #293556; /* Navy */
+  color: var(--color-navy);
   line-height: 1.2;
-  margin: 0 0 8px 0;
+  margin: 0 0 var(--spacing-sm) 0;
 }
 
 /* Competency Tag - Context */
 .card-competency {
-  font-size: 14px;
-  color: #5A4A8A; /* Darker purple for WCAG AA compliance (4.5:1 contrast on #E6E6FA) */
+  font-size: var(--font-size-sm);
+  color: var(--color-purple-dark);
   font-weight: 600;
-  margin: 0 0 12px 0;
+  margin: 0 0 var(--spacing-md) 0;
   text-transform: capitalize;
   letter-spacing: 0.2px;
 }
 
 /* Benefit Statement - Why Use This */
 .card-benefit {
-  font-size: 16px;
-  color: #293556;
+  font-size: var(--font-size-base);
+  color: var(--color-navy);
   line-height: 1.5;
-  margin: 0 0 16px 0;
+  margin: 0 0 var(--spacing-lg) 0;
   opacity: 0.9;
 }
 
 /* Action Link */
 .card-link {
-  color: #293556;
+  color: var(--color-navy);
   font-weight: 600;
   text-decoration: none;
-  font-size: 16px;
+  font-size: var(--font-size-base);
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: gap 0.2s ease, color 0.2s ease;
+  transition: gap var(--transition-fast), color var(--transition-fast);
   position: relative;
 }
 
 .card-link::after {
   content: "→";
-  font-size: 18px;
-  transition: transform 0.2s ease;
+  font-size: var(--font-size-lg);
+  transition: transform var(--transition-fast);
   display: inline-block;
 }
 
 .card-link:hover {
   gap: 10px;
-  color: #5A4A8A;
+  color: var(--color-purple-dark);
 }
 
 .card-link:hover::after {

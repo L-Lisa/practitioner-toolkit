@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import ExerciseCard from './components/ExerciseCard';
 import ExerciseDetail from './components/ExerciseDetail';
 import DesktopInstallBanner from './components/DesktopInstallBanner';
@@ -710,14 +710,37 @@ const App = () => {
   const [pwaInstallModalOpen, setPwaInstallModalOpen] = useState(false);
   const { showInstallButton } = usePWAInstall();
 
-  // Filter exercises by duration
-  const filteredExercises = exercises.filter(ex => {
-    if (filter === 'all') return true;
-    if (filter === '1-3min') return ex.duration.includes('1-2') || ex.duration.includes('2 min') || ex.duration.includes('2-3');
-    if (filter === '5-10min') return ex.duration.includes('5-8') || ex.duration.includes('5-10');
-    if (filter === '10+min') return ex.duration.includes('10-15') || ex.duration.includes('10 min');
-    return true;
-  });
+  // Parse duration string to minutes for accurate filtering
+  const parseDuration = (durationStr) => {
+    if (!durationStr) return null;
+    // Match patterns like "10-15 min", "5 min", "1-2 min"
+    const match = durationStr.match(/(\d+)(?:\s*-\s*(\d+))?\s*min/i);
+    if (!match) return null;
+    const min = parseInt(match[1], 10);
+    const max = match[2] ? parseInt(match[2], 10) : min;
+    return { min, max, avg: (min + max) / 2 };
+  };
+
+  // Filter exercises by duration with memoization
+  const filteredExercises = useMemo(() => {
+    if (filter === 'all') return exercises;
+    
+    return exercises.filter(ex => {
+      const duration = parseDuration(ex.duration);
+      if (!duration) return true; // Include if can't parse (fallback)
+      
+      switch (filter) {
+        case '1-3min':
+          return duration.avg >= 1 && duration.avg <= 3;
+        case '5-10min':
+          return duration.avg >= 5 && duration.avg <= 10;
+        case '10+min':
+          return duration.avg >= 10;
+        default:
+          return true;
+      }
+    });
+  }, [filter]);
 
 
   if (selectedExercise) {
@@ -727,7 +750,7 @@ const App = () => {
   return (
     <div className="app">
       <DesktopInstallBanner />
-      <header className="app-header">
+      <header className="app-header" role="banner">
         <div className="header-top">
           <div className="header-left">
             <h1>Mindfulnessguiden<br/>Verktygslåda</h1>
@@ -749,7 +772,7 @@ const App = () => {
       </header>
 
       {/* Filter Bar */}
-      <div className="filter-bar">
+      <nav className="filter-bar" role="navigation" aria-label="Filtrera övningar">
         <div className="filter-group">
           <label htmlFor="duration-filter" className="filter-label">Tid:</label>
           <select
@@ -765,22 +788,33 @@ const App = () => {
             <option value="10+min">10+ min</option>
           </select>
         </div>
-      </div>
+      </nav>
+
+      {/* Skip to main content link */}
+      <a href="#main-content" className="skip-link">
+        Hoppa till huvudinnehåll
+      </a>
 
       {/* Exercise List */}
-      <div className="exercise-list">
+      <main id="main-content" className="exercise-list" role="main" aria-label="Övningslista">
         <h3>{filteredExercises.length} ÖVNINGAR</h3>
         
         {filteredExercises.length > 0 ? (
           filteredExercises.map(exercise => (
-            <div key={exercise.id} onClick={() => setSelectedExercise(exercise)}>
-              <ExerciseCard exercise={exercise} />
-            </div>
+            <article key={exercise.id}>
+              <button
+                className="exercise-card-button"
+                onClick={() => setSelectedExercise(exercise)}
+                aria-label={`Öppna ${exercise.title}, ${exercise.duration}, ${exercise.competency}`}
+              >
+                <ExerciseCard exercise={exercise} />
+              </button>
+            </article>
           ))
         ) : (
           <p className="no-results">Inga övningar i denna kategori</p>
         )}
-      </div>
+      </main>
 
       {/* PWA Install Modal */}
       <PWAInstallModal
