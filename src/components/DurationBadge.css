@@ -1,14 +1,16 @@
-/* DurationBadge Component Styles */
-/* Shared styles - also defined in styles.css for global use */
+/* Duration Badge with ClockIcon */
 
 .duration-badge {
-  background: var(--color-cream);
-  color: var(--color-navy);
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--radius-lg);
-  font-size: var(--font-size-xs);
-  font-weight: 500;
-  white-space: nowrap;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-sm);
+  color: var(--color-zen-blue);
+  font-weight: var(--font-weight-semibold);
+}
+
+.duration-badge svg {
+  flex-shrink: 0;
+  color: var(--color-zen-blue);
 }
 

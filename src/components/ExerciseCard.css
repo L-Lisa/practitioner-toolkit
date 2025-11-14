@@ -1,25 +1,23 @@
-/* Exercise Card Styles */
-/* Mobile-first, Swedish brand colors, scientific credibility */
+/* Exercise Card Styles - Rebranded */
+/* Mobile-first, Mindfulnessguiden brand (Zen Blue, Sand Beige, Charcoal) */
 
 .exercise-card {
-  background: linear-gradient(135deg, var(--color-lavender) 0%, var(--color-lavender-light) 100%);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-xl);
-  margin-bottom: var(--spacing-lg);
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
   box-shadow: var(--shadow-md);
   transition: transform var(--transition-base), 
-              box-shadow var(--transition-base),
-              border-color var(--transition-fast);
+              box-shadow var(--transition-base);
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(230, 230, 250, 0.5);
+  border: 1px solid rgba(78, 110, 129, 0.08);
 }
 
 .exercise-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
-  border-color: rgba(123, 104, 182, 0.2);
 }
 
 .exercise-card:active {
@@ -28,7 +26,7 @@
 }
 
 .exercise-card:focus-visible {
-  outline: 3px solid var(--color-purple);
+  outline: 3px solid var(--color-zen-blue);
   outline-offset: 3px;
 }
 
@@ -52,61 +50,79 @@
   white-space: nowrap;
 }
 
-/* Exercise Title - Largest Element */
+/* Exercise Title */
 .card-title {
-  font-size: var(--font-size-2xl);
-  font-weight: 700;
-  color: var(--color-navy);
-  line-height: 1.2;
-  margin: 0 0 var(--spacing-sm) 0;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-charcoal);
+  line-height: 1.3;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
 }
 
-/* Competency Tag - Context */
+/* Competency Tag */
 .card-competency {
-  font-size: var(--font-size-sm);
-  color: var(--color-purple-dark);
-  font-weight: 600;
-  margin: 0 0 var(--spacing-md) 0;
-  text-transform: capitalize;
-  letter-spacing: 0.2px;
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--color-zen-blue-pale);
+  color: var(--color-zen-blue);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 10px 0;
+  text-transform: none; /* Remove capitalize */
+  letter-spacing: 0;
 }
 
-/* Benefit Statement - Why Use This */
+/* Benefit Statement */
 .card-benefit {
-  font-size: var(--font-size-base);
-  color: var(--color-navy);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-charcoal-light);
   line-height: 1.5;
-  margin: 0 0 var(--spacing-lg) 0;
-  opacity: 0.9;
+  margin: 0 0 12px 0;
 }
 
-/* Action Link */
+/* Action Link - Custom branded arrow */
 .card-link {
-  color: var(--color-navy);
-  font-weight: 600;
-  text-decoration: none;
-  font-size: var(--font-size-base);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  transition: gap var(--transition-fast), color var(--transition-fast);
+  gap: 4px;
+  color: var(--color-zen-blue);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
   position: relative;
+  transition: gap var(--transition-fast);
 }
 
 .card-link::after {
-  content: "→";
-  font-size: var(--font-size-lg);
-  transition: transform var(--transition-fast);
-  display: inline-block;
+  content: '';
+  width: 12px;
+  height: 2px;
+  background: var(--color-zen-blue);
+  position: relative;
+  transition: width var(--transition-fast);
+}
+
+.card-link::before {
+  content: '';
+  position: absolute;
+  right: -7px;
+  width: 5px;
+  height: 5px;
+  border-top: 2px solid var(--color-zen-blue);
+  border-right: 2px solid var(--color-zen-blue);
+  transform: rotate(45deg);
 }
 
 .card-link:hover {
-  gap: 10px;
-  color: var(--color-purple-dark);
+  gap: 6px;
 }
 
 .card-link:hover::after {
-  transform: translateX(2px);
+  width: 16px;
 }
 
 /* Logo Watermark */
@@ -114,7 +130,7 @@
   position: absolute;
   bottom: 16px;
   right: 16px;
-  opacity: 0.15;
+  opacity: 0.08;
   pointer-events: none;
   z-index: 0;
 }

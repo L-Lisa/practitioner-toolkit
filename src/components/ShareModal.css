@@ -136,8 +136,16 @@
 
 .share-exercise-meta span {
   font-size: 14px;
-  color: #7B68B6;
+  color: #4e6e81;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.share-exercise-meta span svg {
+  flex-shrink: 0;
+  color: #4e6e81;
 }
 
 .share-exercise-description {

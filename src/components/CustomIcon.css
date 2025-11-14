@@ -1,0 +1,150 @@
+/* Custom Branded Icons */
+
+.custom-icon {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Target Icon - "Vad är detta?" */
+.icon-target::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-zen-blue);
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+}
+
+.icon-target::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--color-zen-blue);
+  border-radius: 50%;
+  top: 7px;
+  left: 7px;
+}
+
+/* Lightbulb Icon - "Varför denna övning?" */
+.icon-lightbulb::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--color-zen-blue);
+  border-radius: 50% 50% 0 0;
+  top: 2px;
+  left: 5px;
+}
+
+.icon-lightbulb::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 4px;
+  border: 2px solid var(--color-zen-blue);
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  bottom: 2px;
+  left: 6px;
+}
+
+/* Research Icon - "Forskningsbakgrund" */
+.icon-research::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--color-zen-blue);
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+}
+
+.icon-research::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background: var(--color-zen-blue);
+  transform: rotate(45deg);
+  bottom: 2px;
+  right: 2px;
+}
+
+/* Book Icon - "Hur facilitera?" */
+.icon-book::before {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 16px;
+  border: 2px solid var(--color-zen-blue);
+  border-radius: 2px;
+  top: 2px;
+  left: 3px;
+}
+
+.icon-book::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 16px;
+  background: var(--color-zen-blue);
+  top: 2px;
+  left: 9px;
+}
+
+/* Script Icon - "Skript" */
+.icon-script {
+  border: 2px solid var(--color-zen-blue);
+  border-radius: 2px;
+}
+
+.icon-script::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background: var(--color-zen-blue);
+  top: 5px;
+  left: 3px;
+}
+
+.icon-script::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background: var(--color-zen-blue);
+  bottom: 5px;
+  left: 3px;
+}
+
+/* Clock Icon - "När använda" */
+.icon-clock::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-zen-blue);
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+}
+
+.icon-clock::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 6px;
+  background: var(--color-zen-blue);
+  top: 5px;
+  left: 9px;
+  transform-origin: bottom;
+  transform: rotate(45deg);
+}
+

@@ -1,0 +1,41 @@
+.brand-icon {
+  background: var(--color-zen-blue);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.brand-icon-circle {
+  width: 50%;
+  height: 50%;
+  border: 2px solid var(--color-white);
+  border-radius: 50%;
+  position: relative;
+}
+
+/* Crosshair for focus/mindfulness symbol */
+.brand-icon-circle::before,
+.brand-icon-circle::after {
+  content: '';
+  position: absolute;
+  background: var(--color-white);
+  border-radius: 1px;
+}
+
+.brand-icon-circle::before {
+  width: 2px;
+  height: 60%;
+  top: 20%;
+  left: calc(50% - 1px);
+}
+
+.brand-icon-circle::after {
+  width: 60%;
+  height: 2px;
+  top: calc(50% - 1px);
+  left: 20%;
+}
+

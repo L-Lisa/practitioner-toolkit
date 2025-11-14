@@ -8,6 +8,17 @@ import ResearchIcon from './ResearchIcon';
 import ExpandIcon from './ExpandIcon';
 import ExerciseMeta from './ExerciseMeta';
 import CollapsibleSection from './CollapsibleSection';
+import TargetIcon from './TargetIcon';
+import PurposeIcon from './PurposeIcon';
+import NotesIcon from './NotesIcon';
+import ScriptIcon from './ScriptIcon';
+import InsightIcon from './InsightIcon';
+import ClockIcon from './ClockIcon';
+import PauseIcon from './PauseIcon';
+import ClipboardIcon from './ClipboardIcon';
+import BookIcon from './BookIcon';
+import PlusIcon from './PlusIcon';
+import MinusIcon from './MinusIcon';
 import { updateMetaTags, resetMetaTags } from '../utils/metaTags';
 
 /**
@@ -22,6 +33,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
   const [facilitationExpanded, setFacilitationExpanded] = useState(false);
   const [scriptExpanded, setScriptExpanded] = useState(false);
   const [whenToUseExpanded, setWhenToUseExpanded] = useState(false);
+  const [whyUseExpanded, setWhyUseExpanded] = useState(false);
   const [scriptMode, setScriptMode] = useState(false);
   const [selectedDuration, setSelectedDuration] = useState(exercise.duration);
   const [showQuickRef, setShowQuickRef] = useState(false);
@@ -51,6 +63,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
     setFacilitationExpanded(false);
     setScriptExpanded(false);
     setWhenToUseExpanded(false);
+    setWhyUseExpanded(false);
     setScriptMode(false);
     setSelectedDuration(exercise.duration);
     setShowQuickRef(false);
@@ -202,17 +215,19 @@ const ExerciseDetail = ({ exercise, onBack }) => {
       {showQuickRef && scriptMode && (
         <div className="quick-ref-bar" ref={quickRefBarRef} role="banner" aria-label="Snabbmeny">
           <button className="quick-ref-back" onClick={onBack} aria-label="Tillbaka till övningslista">
-            ←
           </button>
           <div className="quick-ref-title">{exercise.title}</div>
-          <div className="quick-ref-duration">⏱️ {selectedDuration}</div>
+          <div className="quick-ref-duration">
+            <ClockIcon size={16} />
+            <span>{selectedDuration}</span>
+          </div>
         </div>
       )}
 
       {/* Header */}
       <header className="detail-header" role="banner">
         <button className="back-button" onClick={onBack}>
-          ← Tillbaka
+          Tillbaka
         </button>
         <div className="header-actions">
           <BrandLink variant="header" />
@@ -226,7 +241,8 @@ const ExerciseDetail = ({ exercise, onBack }) => {
               }}
               aria-label={`Ändra varaktighet. Nuvarande: ${selectedDuration}. Klicka för att växla till ${durationOptions[(durationOptions.findIndex(d => d === selectedDuration) + 1) % durationOptions.length]}`}
             >
-              ⏱️ {selectedDuration}
+              <ClockIcon size={18} />
+              <span>{selectedDuration}</span>
             </button>
           )}
           <button 
@@ -260,7 +276,19 @@ const ExerciseDetail = ({ exercise, onBack }) => {
           aria-label={scriptMode ? 'Visa detaljerad vy' : 'Visa skriptläge'}
           title="Tryck S för att växla"
         >
-          <span className="mode-label">{scriptMode ? '📋 Detaljerad vy' : '📝 Skriptläge'}</span>
+          <span className="mode-label">
+            {scriptMode ? (
+              <>
+                <ClipboardIcon size={18} />
+                <span> Detaljerad vy</span>
+              </>
+            ) : (
+              <>
+                <NotesIcon size={18} />
+                <span> Skriptläge</span>
+              </>
+            )}
+          </span>
         </button>
         {!scriptMode && (
           <button
@@ -288,15 +316,36 @@ const ExerciseDetail = ({ exercise, onBack }) => {
         <>
           {/* What Section */}
           <section className="detail-section section-card">
-            <h2 className="section-icon">🎯 VAD ÄR DETTA?</h2>
+            <h2 className="section-icon">
+              <TargetIcon size={20} />
+              <span> VAD ÄR DETTA?</span>
+            </h2>
             <p className="section-content">{exercise.oneLiner}</p>
           </section>
 
           {/* Why Use - Converted to bullet points for better scannability */}
           <section className="detail-section section-card">
-            <h2 className="section-icon">📍 VARFÖR DENNA ÖVNING?</h2>
+            <h2 className="section-icon">
+              <PurposeIcon size={20} />
+              <span> VARFÖR DENNA ÖVNING?</span>
+            </h2>
             <div className="why-use-content">
-              {formatWhyUse(exercise.whyUse)}
+              {formatWhyUse(exercise.whyUse, whyUseExpanded)}
+              {(() => {
+                const items = getWhyUseItems(exercise.whyUse);
+                if (items && items.length > 3) {
+                  return (
+                    <button
+                      className="why-use-expand-button"
+                      onClick={() => setWhyUseExpanded(!whyUseExpanded)}
+                      aria-label={whyUseExpanded ? 'Visa färre punkter' : 'Visa alla punkter'}
+                    >
+                      {whyUseExpanded ? 'Visa färre' : `Visa ${items.length - 3} fler`}
+                    </button>
+                  );
+                }
+                return null;
+              })()}
             </div>
           </section>
 
@@ -304,7 +353,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
           <section className="detail-section section-card">
             <CollapsibleSection
               title="FORSKNINGSBAKGRUND"
-              icon="🔬"
+              icon={<ResearchIcon />}
               isExpanded={researchExpanded}
               onToggle={() => setResearchExpanded(!researchExpanded)}
               toggleClassName="research-toggle"
@@ -315,7 +364,10 @@ const ExerciseDetail = ({ exercise, onBack }) => {
                 <span>{exercise.research.summary}</span>
               </div>
               
-              <h3>➕ POSITIVA FYND:</h3>
+              <h3>
+                <PlusIcon size={18} />
+                <span> POSITIVA FYND:</span>
+              </h3>
               <ul>
                 {exercise.research.findings.map((finding, index) => (
                   <li key={index}>{finding}</li>
@@ -324,12 +376,18 @@ const ExerciseDetail = ({ exercise, onBack }) => {
 
               {exercise.research.limitations && (
                 <>
-                  <h3>➖ BEGRÄNSNINGAR:</h3>
+                  <h3>
+                    <MinusIcon size={18} />
+                    <span> BEGRÄNSNINGAR:</span>
+                  </h3>
                   <p>{exercise.research.limitations}</p>
                 </>
               )}
 
-              <h3>📚 KÄLLA:</h3>
+              <h3>
+                <BookIcon size={18} />
+                <span> KÄLLA:</span>
+              </h3>
               <p className="research-source">
                 {researchUrl ? (
                   <>
@@ -355,7 +413,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
           <section className="detail-section section-card">
             <CollapsibleSection
               title="HUR FACILITERA?"
-              icon="📝"
+              icon={<NotesIcon size={20} />}
               isExpanded={facilitationExpanded}
               onToggle={() => setFacilitationExpanded(!facilitationExpanded)}
               toggleClassName="facilitation-toggle"
@@ -385,7 +443,9 @@ const ExerciseDetail = ({ exercise, onBack }) => {
                 if (instruction.type === 'timing') {
                   return (
                     <div key={index} className="script-timing-cue">
-                      <span className="timing-icon">⏸️</span>
+                      <span className="timing-icon">
+                        <PauseIcon size={20} />
+                      </span>
                       <span className="timing-text">{instruction.text}</span>
                     </div>
                   );
@@ -409,7 +469,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
           <>
             <CollapsibleSection
               title="SKRIPT"
-              icon="🎤"
+              icon={<ScriptIcon size={20} />}
               count={`${getScriptLineCount(parsedInstructions)} rader`}
               isExpanded={scriptExpanded}
               onToggle={() => setScriptExpanded(!scriptExpanded)}
@@ -421,7 +481,9 @@ const ExerciseDetail = ({ exercise, onBack }) => {
                   if (instruction.type === 'timing') {
                     return (
                       <p key={index} className="timing-cue">
-                        <span className="timing-icon-inline">⏸️</span> {instruction.text}
+                        <span className="timing-icon-inline">
+                          <PauseIcon size={18} />
+                        </span> {instruction.text}
                       </p>
                     );
                   } else if (instruction.type === 'note') {
@@ -448,7 +510,7 @@ const ExerciseDetail = ({ exercise, onBack }) => {
         <section className="detail-section section-card">
           <CollapsibleSection
             title="NÄR ANVÄNDA"
-            icon="💡"
+            icon={<InsightIcon size={20} />}
             count={`${exercise.whenToUse.length} scenarier`}
             isExpanded={whenToUseExpanded}
             onToggle={() => setWhenToUseExpanded(!whenToUseExpanded)}
@@ -476,7 +538,8 @@ const ExerciseDetail = ({ exercise, onBack }) => {
           }}
           aria-label="Visa skript"
         >
-          📝 Visa skript
+          <NotesIcon size={18} />
+          <span> Visa skript</span>
         </button>
       )}
 
@@ -626,41 +689,67 @@ function getScriptLineCount(parsedInstructions) {
   return parsedInstructions.filter(inst => inst.type === 'script').length;
 }
 
-// Format "Why Use" text into scannable format
-function formatWhyUse(whyUseText) {
+// Get "Why Use" items as array
+function getWhyUseItems(whyUseText) {
   if (!whyUseText) return null;
   
-  // Split by sentences first
-  let sentences = whyUseText.split(/[.!?]+/).filter(s => s.trim().length > 15);
+  // Split by sentences (periods, exclamation, question marks)
+  // Keep the delimiter to preserve sentence endings
+  let sentences = whyUseText.split(/([.!?]+)/).filter(s => s.trim().length > 0);
   
-  // If only one sentence, try to break it by key phrases
-  if (sentences.length === 1) {
-    const text = sentences[0];
-    // Look for natural breaks (commas before key verbs)
-    const naturalBreaks = text.split(/(?=, (?:detta|det|vilket|som))/i);
-    if (naturalBreaks.length > 1 && naturalBreaks.every(b => b.trim().length > 20)) {
-      sentences = naturalBreaks;
+  // Recombine sentences with their punctuation
+  const combined = [];
+  for (let i = 0; i < sentences.length; i += 2) {
+    const sentence = sentences[i]?.trim();
+    const punctuation = sentences[i + 1] || '';
+    if (sentence && sentence.length > 10) { // Lower threshold to catch shorter sentences
+      combined.push(sentence + punctuation);
     }
   }
   
-  // If still only 1-2 short items, return as paragraph
-  if (sentences.length <= 2 && whyUseText.length < 200) {
+  // If we still only have one item, try splitting by colons or key phrases
+  if (combined.length === 1) {
+    const text = combined[0];
+    // Split by colons (often used for lists)
+    if (text.includes(':')) {
+      const parts = text.split(/:\s*/);
+      if (parts.length > 1) {
+        const firstPart = parts[0] + ':';
+        const rest = parts.slice(1).join(' ').split(/\.\s+/).filter(s => s.trim().length > 10);
+        return [firstPart, ...rest.map(s => s.trim() + (s.trim().endsWith('.') ? '' : '.'))];
+      }
+    }
+    
+    // Try splitting by common Swedish connectors
+    const naturalBreaks = text.split(/(?=\s*(?:Detta|Det|Vilket|Som|Därför|Men|Och|Eller)\s+)/i);
+    if (naturalBreaks.length > 1 && naturalBreaks.every(b => b.trim().length > 15)) {
+      return naturalBreaks.map(s => s.trim() + (s.trim().match(/[.!?]$/) ? '' : '.'));
+    }
+  }
+  
+  return combined.length > 0 ? combined : [whyUseText];
+}
+
+// Format "Why Use" text into scannable format
+function formatWhyUse(whyUseText, expanded = false) {
+  if (!whyUseText) return null;
+  
+  const items = getWhyUseItems(whyUseText);
+  
+  // If only 1-2 short items, return as paragraph
+  if (items.length <= 2 && whyUseText.length < 200) {
     return <p className="section-content">{whyUseText}</p>;
   }
+  
+  // Show only first 3 items if not expanded, otherwise show all
+  const displayItems = expanded ? items : items.slice(0, 3);
   
   // Convert to bullet points
   return (
     <ul className="why-use-list">
-      {sentences.map((sentence, index) => {
-        const trimmed = sentence.trim().replace(/^,?\s*/, '');
-        if (!trimmed) return null;
-        return (
-          <li key={index}>
-            {trimmed}
-            {!trimmed.match(/[.!?]$/) && '.'}
-          </li>
-        );
-      })}
+      {displayItems.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
     </ul>
   );
 }

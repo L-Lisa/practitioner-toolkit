@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ShareModal.css';
 import { useModal } from '../hooks/useModal';
+import ClockIcon from './ClockIcon';
 
 /**
  * ShareModal Component
@@ -180,7 +181,10 @@ Hoppas den kan vara till nytta! 🙏`;
           <div className="share-exercise-preview" id="share-modal-description">
             <h3>{exercise.title}</h3>
             <p className="share-exercise-meta">
-              <span>⏱️ {exercise.duration}</span>
+              <span>
+                <ClockIcon size={16} />
+                <span> {exercise.duration}</span>
+              </span>
               <span>{exercise.competency}</span>
             </p>
             <p className="share-exercise-description">{exercise.oneLiner}</p>

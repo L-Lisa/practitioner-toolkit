@@ -29,10 +29,25 @@
 .section-icon {
   font-size: var(--font-size-lg);
   font-weight: 600;
-  color: var(--color-navy);
+  color: var(--color-charcoal);
   margin-bottom: var(--spacing-lg);
   line-height: 1.3;
   letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.section-icon-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.section-title-text {
+  display: inline;
 }
 
 .section-preview {

@@ -1,16 +1,18 @@
 import React from 'react';
 import './DurationBadge.css';
+import ClockIcon from './ClockIcon';
 
 /**
  * DurationBadge Component
- * Reusable badge displaying exercise duration
+ * Reusable badge displaying exercise duration with custom clock icon
  * Used in ExerciseCard, ExerciseDetail, and ShareModal
  */
 export default function DurationBadge({ duration, className = '' }) {
   return (
-    <span className={`duration-badge ${className}`}>
-      ⏱️ {duration}
-    </span>
+    <div className={`duration-badge ${className}`}>
+      <ClockIcon size={16} />
+      <span>{duration}</span>
+    </div>
   );
 }
 

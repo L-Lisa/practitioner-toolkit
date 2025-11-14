@@ -1,22 +1,60 @@
 /* Global CSS Variables and Resets */
 :root {
-  /* Brand colors */
-  --color-primary: #293556; /* Navy - headers, text */
-  --color-secondary: #e6e6fa; /* Lavender - accents */
-  --color-background: #f6f4ea; /* Cream - card background */
+  /* === BRAND COLORS === */
+  /* Primary - Zen Blue (replaces purple) */
+  --color-zen-blue: #4e6e81;
+  --color-zen-blue-dark: #3d5766;
+  --color-zen-blue-light: #6b8599;
+  --color-zen-blue-pale: rgba(78, 110, 129, 0.1);
 
-  /* Semantic colors */
-  --color-text-primary: #293556;
-  --color-text-secondary: rgba(41, 53, 86, 0.6);
-  --color-border: rgba(41, 53, 86, 0.1);
-  --color-overlay: rgba(41, 53, 86, 0.04);
+  /* Backgrounds - Sand Beige */
+  --color-sand-beige: #ede9e3;
+  --color-sand-beige-dark: #e5e0d8;
+  --color-sand-beige-light: #f5f2ed;
+
+  /* Text - Charcoal Gray */
+  --color-charcoal: #2c2c2c;
+  --color-charcoal-light: rgba(44, 44, 44, 0.8);
+  --color-charcoal-pale: rgba(44, 44, 44, 0.6);
+
+  /* Accent Colors */
+  --color-white: #ffffff;
+  --color-accent-warm: rgba(218, 165, 105, 0.2); /* Optional warm accent */
+
+  /* Legacy support - will be removed after migration */
+  --color-primary: #4e6e81; /* Zen Blue */
+  --color-secondary: #ede9e3; /* Sand Beige */
+  --color-background: #ede9e3; /* Sand Beige */
+  --color-text-primary: #2c2c2c; /* Charcoal */
+  --color-text-secondary: rgba(44, 44, 44, 0.8); /* Charcoal Light */
+  --color-border: rgba(78, 110, 129, 0.1);
+  --color-overlay: rgba(78, 110, 129, 0.04);
+
+  /* === TYPOGRAPHY === */
+  --font-heading: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-body: 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
 
   /* Typography Scale (iOS HIG based) */
-  --font-size-small: 13px; /* Captions, watermarks */
-  --font-size-body: 17px; /* Body text, instructions */
-  --font-size-large: 22px; /* Exercise duration */
-  --font-size-title: 28px; /* Exercise names */
-  --font-size-display: 34px; /* Cover card title */
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 32px;
+
+  /* Legacy font sizes */
+  --font-size-small: 13px;
+  --font-size-body: 15px;
+  --font-size-large: 18px;
+  --font-size-title: 24px;
+  --font-size-display: 32px;
 
   --line-height-tight: 1.2;
   --line-height-normal: 1.5;
@@ -25,22 +63,34 @@
   /* Spacing (8px base unit) */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-4xl: 40px;
 
   /* Animation timings */
-  --transition-fast: 150ms;
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.3s ease;
   --transition-normal: 250ms;
-  --transition-slow: 300ms;
-
+  
   /* Touch targets */
   --touch-target-min: 44px;
 
   /* Border radius */
-  --radius-sm: 8px;
+  --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* Shadows - Updated for softer, more organic feel */
+  --shadow-sm: 0 1px 3px rgba(78, 110, 129, 0.08);
+  --shadow-md: 0 2px 8px rgba(78, 110, 129, 0.1);
+  --shadow-lg: 0 4px 16px rgba(78, 110, 129, 0.12);
+  --shadow-xl: 0 8px 24px rgba(78, 110, 129, 0.15);
 }
 
 /* CSS Reset */
@@ -57,10 +107,9 @@ html {
 }
 
 body {
-  font-family: "Roboto", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  color: var(--color-text-primary);
-  background-color: var(--color-background);
+  font-family: var(--font-body);
+  color: var(--color-charcoal);
+  background-color: var(--color-sand-beige);
   line-height: var(--line-height-normal);
   overflow-y: auto; /* Allow vertical scrolling per iOS HIG */
   overflow-x: hidden; /* Prevent horizontal scroll */
@@ -68,6 +117,15 @@ body {
   width: 100vw;
   /* iOS HIG: Smooth scrolling behavior */
   -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-charcoal);
+  letter-spacing: -0.02em;
 }
 
 #root {
@@ -92,9 +150,8 @@ body {
 }
 
 /* Focus styles for accessibility - Enhanced visibility (3px for better contrast) */
-/* Note: Using purple for better visibility and consistency with main styles */
 :focus-visible {
-  outline: 3px solid #7B68B6; /* Purple - better visibility than navy */
+  outline: 3px solid var(--color-zen-blue);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import './CollapsibleSection.css';
+import ExpandIcon from './ExpandIcon';
 
 /**
  * CollapsibleSection Component
@@ -19,7 +20,6 @@ export default function CollapsibleSection({
   count
 }) {
   const displayTitle = count ? `${title} (${count})` : title;
-  const toggleText = isExpanded ? '▲' : '▼';
 
   return (
     <section className={`collapsible-section ${className}`}>
@@ -30,7 +30,11 @@ export default function CollapsibleSection({
         aria-label={`${isExpanded ? 'Dölj' : 'Visa'} ${title}`}
       >
         <h2 className="section-icon">
-          {icon} {displayTitle} {toggleText}
+          <span className="section-icon-content">
+            {icon}
+            <span className="section-title-text"> {displayTitle}</span>
+          </span>
+          <ExpandIcon isExpanded={isExpanded} size={16} />
         </h2>
         {!isExpanded && preview && (
           <p className="section-preview">{preview}</p>
